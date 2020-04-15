@@ -1,29 +1,48 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 
 import {
   MainWrapper,
   ImgWrapper,
   Logo,
   Navigation,
-  ListWrapper,
-  List,
-  Link,
-  DropDownWrapper,
 } from "./style";
 import AppLogo from "../../assets/images/logo.jpg";
-import Dropdown from "./Dropdown/Dropdown";
+import NavigationItem from "./NavigatinItem/NavigationItem";
 
 class NavigationItems extends Component {
   state = {
     listItems: [
-      { id: "0", name: "Home" },
-      { id: "1", name: "Demos" },
-      { id: "2", name: "Recipies" },
-      { id: "3", name: "page" },
-      { id: "4", name: "Submit Recipe" },
+      { id: "0", name: "Home", subLinks: null },
+      {
+        id: "1",
+        name: "Demos",
+        subLinks: [
+          { id: 0, subLinkName: "Shortcodes" },
+          { id: 1, subLinkName: "Typography" },
+          { id: 2, subLinkName: "Contact" },
+        ],
+      },
+      {
+        id: "2",
+        name: "Recipies",
+        subLinks: [
+          { id: 0, subLinkName: "Shortcodes" },
+          { id: 1, subLinkName: "Typography" },
+          { id: 2, subLinkName: "Contact" },
+        ],
+      },
+      {
+        id: "3",
+        name: "page",
+        subLinks: [
+          { id: 0, subLinkName: "Shortcodes" },
+          { id: 1, subLinkName: "Typography" },
+          { id: 2, subLinkName: "Contact" },
+        ],
+      },
+      { id: "4", name: "Submit Recipe", subLinks: null },
     ],
     hover: [false, false, false],
-    dropdownItems: [{}, {}, {}],
   };
   toggleMouseIn = (id) => {
     let oldState = [...this.state.hover];
@@ -46,36 +65,7 @@ class NavigationItems extends Component {
           <Logo src={AppLogo} />
         </ImgWrapper>
         <Navigation>
-          <ListWrapper>
-            {this.state.listItems.map((item) => {
-              if (item.id === "0" || item.id === "4") {
-                return (
-                  <List key={item.id} active={item.id}>
-                    <Link>{item.name}</Link>
-                  </List>
-                );
-              } else {
-                return (
-                  <Fragment key={item.id}>
-                    <List
-                      active={item.id}
-                      onMouseEnter={() => this.toggleMouseIn(item.id)}
-                      onMouseLeave={() => this.toggleMouseOut(item.id)}
-                    >
-                      <DropDownWrapper>
-                        <Link>{item.name}</Link>
-                        <i
-                          className="fa fa-caret-down"
-                          style={{ fontSize: "16px", color: "#707070" }}
-                        ></i>
-                      </DropDownWrapper>
-                      <Dropdown hover={this.state.hover[item.id - 1]} />
-                    </List>
-                  </Fragment>
-                );
-              }
-            })}
-          </ListWrapper>
+        <NavigationItem listItems = {this.state.listItems} hover = {this.state.hover} mouseIn = {this.toggleMouseIn} mouseOut = {this.toggleMouseOut}/>
         </Navigation>
       </MainWrapper>
     );

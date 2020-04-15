@@ -5,15 +5,11 @@ import {ListWrapper ,List ,Link} from './style';
 const dropdown = (props) => {
   return (
     <ListWrapper show = {props.hover}>
-      <List className="">
-        <Link href = "/">Shortcodes</Link>
+    {props.subLinks.map(link => (
+      <List key = {link.id}>
+        <Link href = "/">{link.subLinkName}</Link>
       </List>
-      <List>
-        <Link href = "/">Typography</Link>
-      </List>
-      <List>
-        <Link href = "/">Contact</Link>
-      </List>
+    ))}
     </ListWrapper>
   );
 };
