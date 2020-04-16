@@ -61,14 +61,15 @@ class RecipeBanner extends Component {
   };
 
   render() {
+    console.log(this.props.headerData);
     return (
       <Fragment>
         <Banner
-          item={this.headerItem[this.state.selectedHeaderitem]}
+          item={this.props.headerData[this.state.selectedHeaderitem]}
         />
         <RecipeBar
           show={true}
-          recipeItem={this.headerItem}
+          recipeItem={this.props.headerData}
           clicked={this.clickHandler}
           active={this.state.selectedHeaderitem}
         />

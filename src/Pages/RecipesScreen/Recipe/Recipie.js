@@ -41,7 +41,7 @@ const recipe = (props) => {
                   );
                 })}
               </Rating>
-              {props.list ? (
+              {props.listView ? (
                 <IconsWrapper>
                   <Icon values={recipe.details} color="#909090" />
                 </IconsWrapper>

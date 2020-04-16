@@ -12,10 +12,12 @@ import {
   RecipeDetails,
   RecipeIngredient,
   Details,
-  PrintButton
-} from './style';
-const RecipeDetailScreen = (props) => {
+  PrintButton,
+} from "./style";
+import RecipeDetailHeader from "./RecipeDetailHeader/RecipeDetailHeader";
 
+
+const RecipeDetailScreen = (props) => {
   const detail = Object.keys(props.detail.details).map((data) => {
     return (
       <Details>
@@ -48,9 +50,10 @@ const RecipeDetailScreen = (props) => {
       <RecipeDescription>{data}</RecipeDescription>
     </IngredientWrapper>
   ));
-  
+
   return (
     <RecipeDetailWrapper>
+      <RecipeDetailHeader />
       <RecipeCard>
         <RecipeName>Chunky Beef Stew</RecipeName>
         <RecipeImageWrapper>

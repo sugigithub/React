@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-import Icon from "../../Icons/Icons";
+import Icon from "../../../CommonComponents/Icons/Icons";
 import {
   BannerWrapper,
   BannerImg,
@@ -16,14 +16,12 @@ import {
 const banner = (props) => (
   <Fragment>
     <BannerWrapper>
-      <BannerImg src={props.item.imgUrl} alt="banner image"></BannerImg>
-    <BannerOverlay />
-
+      <BannerImg src={props.item.bannerImgUrl} alt="banner image"></BannerImg>
+      <BannerOverlay />
     </BannerWrapper>
-    
     <OverlayContet>
       <RecipieBtn>{props.item.title}</RecipieBtn>
-      <Text>{props.item.recipe}</Text>
+      <Text>{props.item.name}</Text>
       <IconsWrapper>
         <Icon values={props.item.details} color="white" />
         <IconText>{props.item.author}</IconText>

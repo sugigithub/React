@@ -4,7 +4,7 @@ export const RecipeDetailWrapper = styled.div`
   margin-top: -100px;
   position: relative;
   padding: 0px 25px;
-  display:${props => props.detail ? "block" : "none"}
+  display:${props => props.detail ? "none" : "block"}
 `;
 export const RecipeCard = styled.div`
   background-color: #f8f8f8;
