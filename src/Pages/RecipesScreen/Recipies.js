@@ -27,8 +27,8 @@ class recipesScreen extends Component {
     console.log(recipesDetail);
     return (
       <Fragment>
-        <RecipesScreenWrapper>
         <RecipeBanner headerData={recipesDetail.slice(0, 4)} />
+        <RecipesScreenWrapper>
           <RecipeWrapper>
             <RecipeScreenTop
               listView={this.state.listView}
