@@ -21,4 +21,5 @@ export const ListorGridBox = styled.button`
   background-color: ${(props) => (props.listView ? "#8DC63F" : "#F2F2F2")};
   font-weight: 600;
   border-radius: 3px;
+  cursor:pointer;
 `;

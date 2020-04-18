@@ -26,7 +26,7 @@ const banner = (props) => (
         <Icon values={props.item.details} color="white" />
         <IconText>{props.item.author}</IconText>
       </IconsWrapper>
-      <ViewRecipieBtn>VIEW RECIPIE</ViewRecipieBtn>
+      <ViewRecipieBtn onClick = {props.viewRecipeHandler}>VIEW RECIPIE</ViewRecipieBtn>
     </OverlayContet>
   </Fragment>
 );

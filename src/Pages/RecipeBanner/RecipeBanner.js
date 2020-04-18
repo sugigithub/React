@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import {withRouter} from 'react-router-dom';
 
 // import styled from "styled-components";
 
@@ -6,52 +7,6 @@ import RecipeBar from "./RecipeBar/RecipeBar";
 import Banner from "./Banner/Banner";
 
 class RecipeBanner extends Component {
-  headerItem = [
-    {
-      id: 0,
-      imgUrl: require("../../assets/images/sliderA_01.jpg"),
-      title: "BAKING",
-      recipe: "Mexican Grilled Corn Recipe",
-      details: {
-        servings: 4,
-        prepTime: "30 mins",
-        author: "BY SANDRA FORTIN",
-      },
-    },
-    {
-      id: 1,
-      imgUrl: require("../../assets/images/sliderA_02.jpg"),
-      title: "CURRY",
-      recipe: "Roast Chicken With Lemon Gravy",
-      details: {
-        servings: 4,
-        prepTime: "1 Hr 30 mins",
-        author: "BY SANDRA FORTIN",
-      },
-    },
-    {
-      id: 2,
-      imgUrl: require("../../assets/images/sliderA_03.jpg"),
-      title: "SALADS",
-      recipe: "Avocado Melon Salad With Lime Vinaigrette",
-      details: {
-        servings: 2,
-        prepTime: "15 mins",
-        author: "BY SANDRA FORTIN",
-      },
-    },
-    {
-      id: 3,
-      imgUrl: require("../../assets/images/sliderA_04.jpg"),
-      title: "BEEF",
-      recipe:"Chunky Beef Stew",
-      details: {
-        servings: 1,
-        prepTime: "2 Hr 30 mins",
-        author: "BY SANDRA FORTIN",
-      },
-    },
-  ];
   state = {
     selectedHeaderitem: 0,
   };
@@ -59,13 +14,22 @@ class RecipeBanner extends Component {
   clickHandler = (id) => {
     this.setState({ selectedHeaderitem: id });
   };
-
+  viewRecipeHandler = () =>{
+    this.props.history.push({
+      pathname: 'recipe-detail',
+      state: {
+        detail:this.props.headerData[this.state.selectedHeaderitem]
+      }
+    });
+    window.scrollTo(0, 0);
+  }
   render() {
-    console.log(this.props.headerData);
+    console.log(this.props);
     return (
       <Fragment>
         <Banner
           item={this.props.headerData[this.state.selectedHeaderitem]}
+          viewRecipeHandler = {this.viewRecipeHandler}
         />
         <RecipeBar
           show={true}
@@ -77,4 +41,4 @@ class RecipeBanner extends Component {
     );
   }
 }
-export default RecipeBanner;
+export default withRouter(RecipeBanner);

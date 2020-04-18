@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 export const ListWrapper = styled.ul`
   height: 100%;
@@ -19,21 +20,28 @@ export const List = styled.li`
   align-items: center;
   justify-content: center;
   height: 100%;
-  &:hover {
-    border-bottom: 7px solid #8dc63f;
-    margin-bottom: -7px;
-  }
-  border-bottom: ${(props) => (props.active === 0 ? "7px solid #8DC63F" : "0")};
-  margin-bottom: ${(props) => (props.active === 0 ? "-7px" : "0")};
 `;
-export const Link = styled.a`
+
+export const DropDownWrapper = styled.span`
+  display: flex;
+  height:100%;
+  box-sizing:border-box;
+  width:100%;
+`;
+export const StyledLink = styled(NavLink)`
   color: #707070;
   display: block;
   box-sizing: border-box;
   text-decoration: none;
   padding: 0px 5px;
-`;
-
-export const DropDownWrapper = styled.span`
-  display: flex;
+  height: 100%;
+  padding-top:35px;
+  width:100%;
+  &:hover {
+    border-bottom: 3px solid #8dc63f;
+  }
+  &.${props => props.activeClassName} {
+    border-bottom: 3px solid #8dc63f;
+	}
+  
 `;

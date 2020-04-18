@@ -1,18 +1,13 @@
 import React, { Component } from "react";
 
-import {
-  MainWrapper,
-  ImgWrapper,
-  Logo,
-  Navigation,
-} from "./style";
+import { MainWrapper, ImgWrapper, Logo, Navigation } from "./style";
 import AppLogo from "../../assets/images/logo.jpg";
 import NavigationItem from "./NavigatinItem/NavigationItem";
 
 class NavigationItems extends Component {
   state = {
     listItems: [
-      { id: "0", name: "Home", subLinks: null },
+      { id: "0", name: "Home", subLinks: null, mapTo: "/" },
       {
         id: "1",
         name: "Demos",
@@ -21,6 +16,7 @@ class NavigationItems extends Component {
           { id: 1, subLinkName: "Typography" },
           { id: 2, subLinkName: "Contact" },
         ],
+        mapTo: "'/Demos",
       },
       {
         id: "2",
@@ -30,6 +26,7 @@ class NavigationItems extends Component {
           { id: 1, subLinkName: "Typography" },
           { id: 2, subLinkName: "Contact" },
         ],
+        mapTo: "/recipe-detail",
       },
       {
         id: "3",
@@ -39,8 +36,15 @@ class NavigationItems extends Component {
           { id: 1, subLinkName: "Typography" },
           { id: 2, subLinkName: "Contact" },
         ],
+        mapTo: "/page",
       },
-      { id: "4", name: "Submit Recipe", subLinks: null },
+
+      {
+        id: "4",
+        name: "Submit Recipe",
+        subLinks: null,
+        mapTo: "/submit-recipe",
+      },
     ],
     hover: [false, false, false],
   };
@@ -65,7 +69,12 @@ class NavigationItems extends Component {
           <Logo src={AppLogo} />
         </ImgWrapper>
         <Navigation>
-        <NavigationItem listItems = {this.state.listItems} hover = {this.state.hover} mouseIn = {this.toggleMouseIn} mouseOut = {this.toggleMouseOut}/>
+          <NavigationItem
+            listItems={this.state.listItems}
+            hover={this.state.hover}
+            mouseIn={this.toggleMouseIn}
+            mouseOut={this.toggleMouseOut}
+          />
         </Navigation>
       </MainWrapper>
     );

@@ -1,29 +1,7 @@
 import React from "react";
 
 import Author from "../../assets/images/author-photo.jpg";
-import styled from "styled-components";
-
-const AuthorWrapper = styled.div`
-  width: 220px;
-  border: 1px solid #e8e8e8;
-  padding: 20px 20px;
-  box-sizing: border-box;
-  height: fit-content;
-`;
-const AuthorDetail = styled.p`
-  color: ${(props) => props.color};
-  font-size: ${(props) => props.fontSize};
-  font-weight: ${(props) => props.fontWeight};
-  /* width: 100px; */
-  padding-top: 15px;
-  line-height: normal;
-`;
-const AuthorImage = styled.img`
-  border-radius: 50%;
-  width: 64px;
-  height: 64px;
-  float:right;
-`;
+import {AuthorWrapper,AuthorDetail,AuthorImage} from './style';
 const author = (props) => {
   return (
     <AuthorWrapper>

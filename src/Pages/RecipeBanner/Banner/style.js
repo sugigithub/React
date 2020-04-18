@@ -39,6 +39,7 @@ export const ViewRecipieBtn = styled.button`
   width: 130px;
   text-align: center;
   outline: none;
+  cursor:pointer;
 `;
 export const OverlayContet = styled.div`
   position: absolute;

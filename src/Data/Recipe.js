@@ -5,6 +5,7 @@ export const recipesDetail = [
       bannerImgUrl: require("../assets/images/sliderA_01.jpg"),
       name: "Mexican Grilled Corn Recipe",
       title: "BAKING",
+      reviews:4,
       description:
         "Maecenas in massa eget urna ullamcorper pharetra. Curabitur laoreet scelerisque bibendum. Aenean ullamcorper neque ac tristique semper. Phasellus enim mauris, mollis vulputate blandit in, ornare sed leo.",
       details: {
@@ -36,6 +37,7 @@ export const recipesDetail = [
       id: 1,
       imgUrl: require("../assets/images/recipeThumb-02.jpg"),
       bannerImgUrl: require("../assets/images/sliderA_02.jpg"),
+      reviews:5,
       title: "CURRY",
       name: "Choclate Cake With Green Tea Cream",
       description:
@@ -70,6 +72,7 @@ export const recipesDetail = [
       imgUrl: require("../assets/images/recipeThumb-03.jpg"),
       bannerImgUrl: require("../assets/images/sliderA_03.jpg"),
       name: "Thai Yellow Curry Chicken",
+      reviews:6,
       title: "SALADS",
       description:
         "Maecenas in massa eget urna ullamcorper pharetra. Curabitur laoreet scelerisque bibendum. Aenean ullamcorper neque ac tristique semper. Phasellus enim mauris, mollis vulputate blandit in, ornare sed leo.",
@@ -103,6 +106,7 @@ export const recipesDetail = [
       imgUrl: require("../assets/images/recipeThumb-04.jpg"),
       bannerImgUrl: require("../assets/images/sliderA_04.jpg"),
       name: "Avocado Melon Salad With Lime Vinaigrette",
+      reviews:4,
       title: "BEEF",
       description:
         "Maecenas in massa eget urna ullamcorper pharetra. Curabitur laoreet scelerisque bibendum. Aenean ullamcorper neque ac tristique semper. Phasellus enim mauris, mollis vulputate blandit in, ornare sed leo.",
@@ -136,6 +140,7 @@ export const recipesDetail = [
       imgUrl: require("../assets/images/recipeThumb-05.jpg"),
       bannerImgUrl: require("../assets/images/sliderA_01.jpg"),
       name: "Sweet Chilli and Lime Chicken Wings",
+      reviews:3,
       title:"Dry",
       description:
         "Maecenas in massa eget urna ullamcorper pharetra. Curabitur laoreet scelerisque bibendum. Aenean ullamcorper neque ac tristique semper. Phasellus enim mauris, mollis vulputate blandit in, ornare sed leo.",
@@ -169,6 +174,7 @@ export const recipesDetail = [
       imgUrl: require("../assets/images/recipeThumb-06.jpg"),
       bannerImgUrl: require("../assets/images/sliderA_02.jpg"),
       name: "Pollo Borracho With Homemade Tortillas",
+      reviews:8,
       title:"Gravy",
       description:
         "Maecenas in massa eget urna ullamcorper pharetra. Curabitur laoreet scelerisque bibendum. Aenean ullamcorper neque ac tristique semper. Phasellus enim mauris, mollis vulputate blandit in, ornare sed leo.",
@@ -202,6 +208,7 @@ export const recipesDetail = [
       imgUrl: require("../assets/images/recipeThumb-07.jpg"),
       bannerImgUrl: require("../assets/images/sliderA_03.jpg"),
       name: "Roast Chicken With Lemon Gravy",
+      reviews:4,
       title:"Gravy",
       description:
         "Maecenas in massa eget urna ullamcorper pharetra. Curabitur laoreet scelerisque bibendum. Aenean ullamcorper neque ac tristique semper. Phasellus enim mauris, mollis vulputate blandit in, ornare sed leo.",
@@ -235,6 +242,7 @@ export const recipesDetail = [
       imgUrl: require("../assets/images/recipeThumb-08.jpg"),
       bannerImgUrl: require("../assets/images/sliderA_04.jpg"),
       name: "Chunky Beef Stew",
+      reviews:5,
       title:"BEEF",
       description:
         "Maecenas in massa eget urna ullamcorper pharetra. Curabitur laoreet scelerisque bibendum. Aenean ullamcorper neque ac tristique semper. Phasellus enim mauris, mollis vulputate blandit in, ornare sed leo.",
@@ -268,6 +276,7 @@ export const recipesDetail = [
       imgUrl: require("../assets/images/recipeThumb-09.jpg"),
       bannerImgUrl: require("../assets/images/sliderA_01.jpg"),
       name: "Farmhouse Vegetable And Barley Soup",
+      reviews:2,
       title:"Soup",
       description:
         "Maecenas in massa eget urna ullamcorper pharetra. Curabitur laoreet scelerisque bibendum. Aenean ullamcorper neque ac tristique semper. Phasellus enim mauris, mollis vulputate blandit in, ornare sed leo.",

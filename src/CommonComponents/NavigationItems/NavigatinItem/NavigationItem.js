@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 
 import Dropdown from "../Dropdown/Dropdown";
-import {ListWrapper,List,Link,DropDownWrapper} from './style';
+import { ListWrapper, List, DropDownWrapper ,StyledLink} from "./style";
 
 const navigationItem = (props) => {
   return (
@@ -9,26 +9,28 @@ const navigationItem = (props) => {
       {props.listItems.map((item) => {
         if (item.subLinks == null) {
           return (
-            <List key={item.id} active={item.id}>
-              <Link>{item.name}</Link>
+            <List key={item.id}>
+              <StyledLink to = {item.mapTo} exact activeClassName = "curLink">{item.name}</StyledLink>
             </List>
           );
         } else {
           return (
             <Fragment key={item.id}>
               <List
-                active={item.id}
                 onMouseEnter={() => props.mouseIn(item.id)}
                 onMouseLeave={() => props.mouseOut(item.id)}
               >
                 <DropDownWrapper>
-                  <Link>{item.name}</Link>
+                  <StyledLink to = {item.mapTo} dropdown activeClassName = "curLink">{item.name}</StyledLink>
                   <i
                     className="fa fa-caret-down"
-                    style={{ fontSize: "16px", color: "#707070" }}
+                    style={{ fontSize: "16px", color: "#707070",paddingTop:"35px", marginLeft: "-40px"}}
                   ></i>
                 </DropDownWrapper>
-                <Dropdown hover={props.hover[item.id - 1]} subLinks = {item.subLinks}/>
+                <Dropdown
+                  hover={props.hover[item.id - 1]}
+                  subLinks={item.subLinks}
+                />
               </List>
             </Fragment>
           );

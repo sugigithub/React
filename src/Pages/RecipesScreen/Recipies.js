@@ -1,17 +1,12 @@
 import React, { Component, Fragment } from "react";
 
-import { recipesDetail } from "../../RecipeData/RecipeData";
-import { RecipesScreenWrapper, RecipeWrapper, SideBar } from "./style";
-import Recipe from "./Recipe/Recipie";
-import Author from "../../CommonComponents/Author/Author";
-import SearchBar from "../../CommonComponents/SearchRecipe/SearchRecipe";
-import RecipeScreenTop from "./RecipeScreenTop/RecipeScreenTop";
-import RecipeDetailScreen from "../RecipeDetailScreen/RecipeDetailScreen";
-import RecipeBanner from "../RecipeBanner/RecipeBanner";
+import { recipesDetail } from "../../Data/Recipe";
+import HomePageRecipe from "./HomePageRecipe/HomePageRecipe";
 
 class recipesScreen extends Component {
   state = {
     listView: false,
+    searchRecipe: null,
   };
 
   listViewHandler = () => {
@@ -19,32 +14,48 @@ class recipesScreen extends Component {
     this.setState({ listView: !oldState });
   };
 
-  ingredientSelected = (id) => {
-    console.log(id);
+  showDetailHandler = (id) => {
+    this.props.history.push({
+      pathname: "recipe-detail",
+      state: {
+        detail: recipesDetail[id],
+      },
+    });
+    window.scrollTo(0, 0);
+  };
+  searchRecipeHandler = (event) => {
+    // console.log(event.target.value);
+    const searchText = event.target.value;
+    let tempRecipeArray = [];
+    recipesDetail.filter((data) => {
+      if (data.name.toLowerCase().includes(searchText)) {
+        tempRecipeArray.push(data);
+      }
+    });
+    this.setState({ searchRecipe: tempRecipeArray });
+    console.log(this.state.searchRecipe);
   };
 
+  viewAllRecipeHandler = () => {
+    this.setState({ searchRecipe: null });
+  };
   render() {
-    console.log(recipesDetail);
+    console.log(this.props);
     return (
       <Fragment>
-        <RecipeBanner headerData={recipesDetail.slice(0, 4)} />
-        <RecipesScreenWrapper>
-          <RecipeWrapper>
-            <RecipeScreenTop
-              listView={this.state.listView}
-              clicked={this.listViewHandler}/>
-            <Recipe
-              recipedetails={recipesDetail}
-              listView={this.state.listView}/>
-            <RecipeDetailScreen
-              detail={recipesDetail[0]}
-              clicked={this.ingredientSelected}/>
-          </RecipeWrapper>
-          <SideBar>
-            <SearchBar />
-            <Author />
-          </SideBar>
-        </RecipesScreenWrapper>
+        <HomePageRecipe
+          recipesDetail={
+            this.state.searchRecipe === null
+              ? recipesDetail
+              : this.state.searchRecipe
+          }
+          headerData={recipesDetail.slice(0, 4)}
+          listView={this.state.listView}
+          listViewHandler={this.listViewHandler}
+          showDetailHandler={this.showDetailHandler}
+          searchRecipeHandler={this.searchRecipeHandler}
+          viewAllRecipe={this.viewAllRecipeHandler}
+        />
       </Fragment>
     );
   }

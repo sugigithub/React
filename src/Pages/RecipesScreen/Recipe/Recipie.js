@@ -11,21 +11,21 @@ import {
   Duration,
   Time,
   IconsWrapper,
-  ImageWrapper
+  ImageWrapper,
 } from "./style";
 import RatingsIcon from "./RatingsIcon/RatingsIcon";
 import Icon from "../../../CommonComponents/Icons/Icons";
-import CardsOverlay from './CardsOverlay/CardsOverlay';
+import CardsOverlay from "./CardsOverlay/CardsOverlay";
 
 const recipe = (props) => {
   return (
     <RecipieWrapper>
-      {props.recipedetails.map((recipe) => {
+      {props.recipedetails.map((recipe,index) => {
         return (
           <RecipieCard key={recipe.id} listView={props.listView}>
             <ImageWrapper>
-            <Image src={recipe.imgUrl} listView={props.listView} />
-            <CardsOverlay listView = {props.listView}/>
+              <Image src={recipe.imgUrl} listView={props.listView} />
+              <CardsOverlay viewDetails = {() => props.showDetailHandler(index)}/>
             </ImageWrapper>
             <RecipieTitleBox>
               <RecipieName listView={props.listView}>{recipe.name}</RecipieName>
@@ -37,7 +37,10 @@ const recipe = (props) => {
                   return (
                     <RatingsIcon
                       key={index}
-                      color={index < recipe.details.ratings ? "#F3C63F" : "#E0E0E0"}/>
+                      color={
+                        index < recipe.details.ratings ? "#F3C63F" : "#E0E0E0"
+                      }
+                    />
                   );
                 })}
               </Rating>
