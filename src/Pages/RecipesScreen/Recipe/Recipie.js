@@ -17,15 +17,17 @@ import RatingsIcon from "./RatingsIcon/RatingsIcon";
 import Icon from "../../../CommonComponents/Icons/Icons";
 import CardsOverlay from "./CardsOverlay/CardsOverlay";
 
-const recipe = (props) => {
+const Recipe = (props) => {
   return (
     <RecipieWrapper>
-      {props.recipedetails.map((recipe,index) => {
+      {props.recipedetails.map((recipe, index) => {
         return (
           <RecipieCard key={recipe.id} listView={props.listView}>
             <ImageWrapper>
               <Image src={recipe.imgUrl} listView={props.listView} />
-              <CardsOverlay viewDetails = {() => props.showDetailHandler(index)}/>
+              <CardsOverlay
+                viewDetails={() => props.showDetailHandler(index)}
+              />
             </ImageWrapper>
             <RecipieTitleBox>
               <RecipieName listView={props.listView}>{recipe.name}</RecipieName>
@@ -65,4 +67,4 @@ const recipe = (props) => {
   );
 };
 
-export default recipe;
+export default Recipe;

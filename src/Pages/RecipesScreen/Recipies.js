@@ -4,9 +4,38 @@ import { recipesDetail } from "../../Data/Recipe";
 import HomePageRecipe from "./HomePageRecipe/HomePageRecipe";
 
 class recipesScreen extends Component {
+  componentDidMount() {
+    if (this.props.location.state != null) {
+      this.setState({ searchText: this.props.location.state.searchText });
+      this.filterRecipe(this.props.location.state.searchText);
+    }
+    window.location.hash = window.decodeURIComponent(window.location.hash);
+    const scrollToAnchor = () => {
+      const hashParts = window.location.hash.split("#");
+      if (hashParts.length === 2) {
+        const hash = hashParts[1];
+        document.getElementById(hash).scrollIntoView();
+        document.getElementById(hash).focus();
+      }
+    };
+    scrollToAnchor();
+  }
+
+  filterRecipe = (text) => {
+    let tempRecipeArray = [];
+    recipesDetail.filter((data) => {
+      if (data.name.toLowerCase().includes(text)) {
+        return tempRecipeArray.push(data);
+      }
+    }
+    );
+    this.setState({ searchRecipe: tempRecipeArray });
+  };
+
   state = {
     listView: false,
     searchRecipe: null,
+    searchText: "",
   };
 
   listViewHandler = () => {
@@ -23,24 +52,19 @@ class recipesScreen extends Component {
     });
     window.scrollTo(0, 0);
   };
+
   searchRecipeHandler = (event) => {
-    // console.log(event.target.value);
     const searchText = event.target.value;
-    let tempRecipeArray = [];
-    recipesDetail.filter((data) => {
-      if (data.name.toLowerCase().includes(searchText)) {
-        tempRecipeArray.push(data);
-      }
-    });
-    this.setState({ searchRecipe: tempRecipeArray });
-    console.log(this.state.searchRecipe);
+    this.setState({ searchText: searchText });
+    this.filterRecipe(searchText);
+    
   };
 
   viewAllRecipeHandler = () => {
-    this.setState({ searchRecipe: null });
+    this.setState({ searchRecipe: null, searchText: "" });
   };
+
   render() {
-    console.log(this.props);
     return (
       <Fragment>
         <HomePageRecipe
@@ -55,6 +79,7 @@ class recipesScreen extends Component {
           showDetailHandler={this.showDetailHandler}
           searchRecipeHandler={this.searchRecipeHandler}
           viewAllRecipe={this.viewAllRecipeHandler}
+          searchText={this.state.searchText}
         />
       </Fragment>
     );

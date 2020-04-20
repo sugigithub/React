@@ -21,7 +21,7 @@ const navigationItem = (props) => {
                 onMouseLeave={() => props.mouseOut(item.id)}
               >
                 <DropDownWrapper>
-                  <StyledLink to = {item.mapTo} dropdown activeClassName = "curLink">{item.name}</StyledLink>
+                  <StyledLink to = {item.mapTo} activeClassName = "curLink">{item.name}</StyledLink>
                   <i
                     className="fa fa-caret-down"
                     style={{ fontSize: "16px", color: "#707070",paddingTop:"35px", marginLeft: "-40px"}}

@@ -24,7 +24,6 @@ class RecipeBanner extends Component {
     window.scrollTo(0, 0);
   }
   render() {
-    console.log(this.props);
     return (
       <Fragment>
         <Banner

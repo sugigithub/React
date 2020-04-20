@@ -1,14 +1,14 @@
-import React, { Fragment } from "react";
+import React from "react";
 
-import {BannerOverlay,OverlayButton} from './style';
+import { BannerOverlay, OverlayButton, Wrapper } from "./style";
 
-const cardsOverlay = (props) => {
+const CardsOverlay = (props) => {
   return (
-    <Fragment>
+    <Wrapper>
       <BannerOverlay />
-       <OverlayButton onClick = {props.viewDetails}>View Recipe</OverlayButton>
-    </Fragment>
+      <OverlayButton onClick={props.viewDetails}>View Recipe</OverlayButton>
+    </Wrapper>
   );
 };
 
-export default cardsOverlay;
+export default CardsOverlay;

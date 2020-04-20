@@ -8,7 +8,6 @@ import { RecipesScreenWrapper, RecipeWrapper ,} from "./style";
 import RecipeNotFound from '../RecipeNotfound/RecipeNotFound';
 
 const homePageRecipe = (props) => {
-  console.log(props)
   return (
     <Fragment>
       <RecipeBanner headerData={props.headerData} />
@@ -28,7 +27,7 @@ const homePageRecipe = (props) => {
           }
           
         </RecipeWrapper>
-        <SideBar searchRecipeHandler = {props.searchRecipeHandler}/>
+        <SideBar searchRecipeHandler = {props.searchRecipeHandler} searchText = {props.searchText} id = "search"/>
       </RecipesScreenWrapper>
     </Fragment>
   );

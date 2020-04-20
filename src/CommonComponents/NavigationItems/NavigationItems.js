@@ -16,11 +16,11 @@ class NavigationItems extends Component {
           { id: 1, subLinkName: "Typography" },
           { id: 2, subLinkName: "Contact" },
         ],
-        mapTo: "'/Demos",
+        mapTo: "/Demos",
       },
       {
         id: "2",
-        name: "Recipies",
+        name: "Recipes",
         subLinks: [
           { id: 0, subLinkName: "Shortcodes" },
           { id: 1, subLinkName: "Typography" },
@@ -30,7 +30,7 @@ class NavigationItems extends Component {
       },
       {
         id: "3",
-        name: "page",
+        name: "pages",
         subLinks: [
           { id: 0, subLinkName: "Shortcodes" },
           { id: 1, subLinkName: "Typography" },

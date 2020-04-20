@@ -3,13 +3,14 @@ import styled from "styled-components";
 export const TopWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding-bottom: 15px;
+  padding: 15px 0px 35px 0px;
 `;
 
 export const Recipe = styled.h2`
   color: #606060;
   font-weight: 500;
-  padding-right: 20px;
+  padding-right: 50px;
+  font-size:25px;
 `;
 export const ListorGridBox = styled.button`
   width: 150px;

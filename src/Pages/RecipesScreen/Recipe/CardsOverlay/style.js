@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.div`
+  display: block;
+`;
+
+
 export const OverlayButton = styled.button`
   position: absolute;
   height: 50px;
@@ -9,15 +14,27 @@ export const OverlayButton = styled.button`
   border: none;
   top: 37%;
   left: 24%;
-  cursor:pointer;
+  outline:none;
+  cursor: pointer;
+  display: none;
+  ${Wrapper}:hover & {
+    display: block;
+  }
 `;
-
 export const BannerOverlay = styled.div`
   height: 100%;
   background: #333;
   width: 100%;
   position: absolute;
   display: block;
-  opacity: 0.4;
+  opacity: 0;
   top: 0;
+  transition: 0.3s;
+  opacity: 0;
+  &:hover{
+    opacity: 0.4;
+  }
+  ${Wrapper}:hover & {
+    opacity: 0.4;
+  }
 `;
