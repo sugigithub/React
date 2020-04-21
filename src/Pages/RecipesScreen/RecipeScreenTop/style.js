@@ -18,6 +18,7 @@ export const ListorGridBox = styled.button`
   border: none;
   outline: none;
   font-size: 14px;
+  transition: 0.2s ease-out;
   color: ${(props) => (props.listView ? "white" : "gray")};
   background-color: ${(props) => (props.listView ? "#8DC63F" : "#F2F2F2")};
   font-weight: 600;

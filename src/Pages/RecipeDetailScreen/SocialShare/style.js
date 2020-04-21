@@ -11,6 +11,7 @@ export const ShareButton = styled.button`
   font-family: inherit;
   padding: 2px 10px;
   margin: 35px 5px;
+  cursor:pointer;
 `;
 export const Icon = styled.i`
   padding-right: 5px;

@@ -4,6 +4,9 @@ export const BannerWrapper = styled.div`
   height: 420px;
   position: relative;
   overflow: hidden;
+  background-image:url('${(props) => props.url}');
+  background-size:cover;
+  transition: 0.3s ease-in;
 `;
 
 export const BannerImg = styled.img`
@@ -20,6 +23,7 @@ export const BannerOverlay = styled.div`
   display: block;
   opacity: 0.5;
   top: 0;
+  transition: 0.3s ease-in;
 `;
 
 export const Text = styled.h2`
@@ -39,17 +43,20 @@ export const ViewRecipieBtn = styled.button`
   width: 130px;
   text-align: center;
   outline: none;
-  cursor:pointer;
+  cursor: pointer;
 `;
 export const OverlayContet = styled.div`
   position: absolute;
-  top: 80px;
   padding: 60px 50px;
-  height: 100px;
   display: block;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 5% 15%;
 `;
 export const IconsWrapper = styled.div`
-  padding: 20px 0px;
+  padding: 10px 0px;
+  width:fit-content;
+  height: 35px;
 `;
 
 export const RecipieBtn = styled.button`

@@ -40,7 +40,7 @@ const Recipe = (props) => {
                     <RatingsIcon
                       key={index}
                       color={
-                        index < recipe.details.ratings ? "#F3C63F" : "#E0E0E0"
+                        index < recipe.ratings ? "#F3C63F" : "#E0E0E0"
                       }
                     />
                   );

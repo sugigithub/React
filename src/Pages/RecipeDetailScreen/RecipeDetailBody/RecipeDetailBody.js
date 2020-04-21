@@ -14,7 +14,9 @@ import {
   IngredientWrapper,
   DirectionStep,
   Ratings,
-  Reviews
+  Reviews,
+  Ingredients,
+  DescWrapper
 } from "./style";
 import CheckBox from "./Checkbox/Checkbox";
 import RatingsIcon from "../../RecipesScreen/Recipe/RatingsIcon/RatingsIcon";
@@ -24,6 +26,9 @@ import SocialShare from '../SocialShare/SocialShare';
 const RecipeDetailBody = (props) => {
 
   const detail = Object.keys(props.data.details).map((data,index) => {
+    if(data === "author"){
+      return;
+    }
     return (
       <Details key = {index}>
         {data} :<br />
@@ -39,10 +44,10 @@ const RecipeDetailBody = (props) => {
   ));
 
   const directions = props.data.directions.map((data, index) => (
-    <IngredientWrapper key = {index}>
+    <DescWrapper key = {index}>
       <DirectionStep>{index+1}</DirectionStep>
       <RecipeDescription>{data}</RecipeDescription>
-    </IngredientWrapper>
+    </DescWrapper>
   ));
   
   return (
@@ -55,7 +60,7 @@ const RecipeDetailBody = (props) => {
               <RatingsIcon
                 key={index}
                 color={
-                  index < props.data.details.ratings ? "#F3C63F" : "#E0E0E0"
+                  index < props.data.ratings ? "#F3C63F" : "#E0E0E0"
                 }
               />
             );
@@ -72,7 +77,9 @@ const RecipeDetailBody = (props) => {
       </RecipeCard>
       <RecipeDescription>{props.data.description}</RecipeDescription>
       <RecipeIngredient>Ingredients</RecipeIngredient>
+      <Ingredients>
       {ingredients}
+      </Ingredients>
       <RecipeIngredient>Directions</RecipeIngredient>
       {directions}
       <SocialShare/>

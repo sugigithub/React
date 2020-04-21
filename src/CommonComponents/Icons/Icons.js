@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { IconText } from "./style";
+import { IconText, Wrapper } from "./style";
 
 const icon = (props) => (
   // Object.keys(props.values).map(value =>{
@@ -11,12 +11,18 @@ const icon = (props) => (
   //   )
   // })
   <Fragment>
-    <i className="fas fa-user" style={{ color: props.color }}></i>
-    <IconText color = {props.color}>{props.values.author}</IconText>
-    <i className="fas fa-utensils" style={{ color: props.color }}></i>
-    <IconText color = {props.color}>{props.values.servings} servings</IconText>
-    <i className="fas fa-clock" style={{ color: props.color }}></i>
-    <IconText color = {props.color}>{props.values.prepTime}</IconText>
+    <Wrapper>
+      <i className="fas fa-utensils" style={{ color: props.color ,fontSize:"12px"}}></i>
+      <IconText color={props.color}>{props.values.servings}</IconText>
+    </Wrapper>
+    <Wrapper>
+      <i className="fas fa-clock" style={{ color: props.color ,fontSize:"12px"}}></i>
+      <IconText color={props.color}>{props.values.prepTime}</IconText>
+    </Wrapper>
+    <Wrapper>
+      <i className="fas fa-user" style={{ color: props.color ,fontSize:"12px"}}></i>
+      <IconText color={props.color}>{props.values.author}</IconText>
+    </Wrapper>
   </Fragment>
 );
 

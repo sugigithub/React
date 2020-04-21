@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const CheckBoxWrapper = styled.div`
   display: flex;
-  margin-bottom: 15px;
 `;
 export const Checkbox = styled.input`
   padding: 0;

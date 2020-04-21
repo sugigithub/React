@@ -14,6 +14,7 @@ export const Recipie = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.2s ease-in;
   &:hover {
     background-color: #8dc63f;
   }
