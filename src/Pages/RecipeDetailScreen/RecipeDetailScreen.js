@@ -10,7 +10,7 @@ const RecipeDetailScreen = (props) => {
   console.log(props);
   useEffect(() => {
     if (!recipeData) {
-      props.history.push("/");
+      props.history.push("/home");
     }
   }, []);
 
@@ -23,7 +23,7 @@ const RecipeDetailScreen = (props) => {
   const searchRecipe = () => {
     if (props.history.location.pathname === "/recipe-detail") {
       props.history.push({
-        pathname: "/",
+        pathname: "/home",
         state: {
           searchText: searchText,
         },

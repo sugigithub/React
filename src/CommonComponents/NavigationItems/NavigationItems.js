@@ -7,7 +7,7 @@ import NavigationItem from "./NavigatinItem/NavigationItem";
 class NavigationItems extends Component {
   state = {
     listItems: [
-      { id: "0", name: "Home", subLinks: null, mapTo: "/" },
+      { id: "0", name: "Home", subLinks: null, mapTo: "/home" },
       {
         id: "1",
         name: "Demos",
