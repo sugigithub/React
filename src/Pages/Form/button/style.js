@@ -11,6 +11,7 @@ export const Login = styled.button`
   font-size: 15px;
   font-weight: 600;
   margin-top: 20px;
+  cursor:pointer;
 `;
 export const SignUpBtn = styled(Login)`
   background-color: transparent;

@@ -54,4 +54,5 @@ export const ShowHide = styled.p`
   top: 35px;
   left: 85%;
   color:#8dc63f;
+  cursor:pointer;
 `;

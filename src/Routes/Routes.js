@@ -6,18 +6,11 @@ import { Route, Switch ,Redirect} from "react-router-dom";
 import Login from "../Pages/Form/Login/Login";
 import SignUp from "../Pages/Form/Signup/Signup";
 import HomePageRoute from "./HomePageRoutes";
+import PageNotFound from '../Pages/404/PageNotFound';
 
 class Routes extends Component {
-  requireAuth = (nextState, replace) => {
-    console.log("123456");
-    if (!this.props.isLoggedIn) {
-      replace({
-        pathname: "/",
-      });
-    }
-  };
   render() {
-    console.log(this.props.isLoggedIn);
+    console.log(this.props.isLoggedIn == true);
     return (
       <Fragment>
         <Switch>
@@ -25,15 +18,17 @@ class Routes extends Component {
           <Route path="/sign-up" exact component={SignUp} />
           <Route
             render={() =>
-              this.props.isLoggedIn ? <HomePageRoute /> : <Redirect to="/" /> 
+              this.props.isLoggedIn === "true" ? <HomePageRoute /> : <Redirect to="/" /> 
             }
           />
+        <Route path='*' exact component = {PageNotFound} />
         </Switch>
       </Fragment>
     );
   }
 }
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
     isLoggedIn: state.isLoggedIn,
   };

@@ -9,14 +9,15 @@ export const SignupText = styled.p`
   font-size: 39px;
   color: #333;
   line-height: 1.2;
-  padding: 20px 0px 35px 0px;
+  padding: 20px 0px 10px 0px;
   font-weight: 500;
 `;
 export const ErrorOutput = styled.p`
   color: red;
   font-size: 18px;
   font-weight: 500;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
+  height:45px;
 `;
 export const Wrapper = styled.div`
   width: 100%;

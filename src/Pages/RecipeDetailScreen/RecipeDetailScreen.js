@@ -20,7 +20,8 @@ const RecipeDetailScreen = (props) => {
     setSearchText(event.target.value)    
   };
 
-  const searchRecipe = () => {
+  const searchRecipe = (event) => {
+    event.preventDefault();
     if (props.history.location.pathname === "/recipe-detail") {
       props.history.push({
         pathname: "/home",
@@ -39,7 +40,7 @@ const RecipeDetailScreen = (props) => {
         <RecipeDetailBody data={recipeData.detail} />
         <SideBar
           searchRecipeHandler={searchRecipeHandler}
-          searchRecipe={searchRecipe}
+          searchRecipe={(event)=>searchRecipe(event)}
           searchText={searchText}
         />
       </RecipeDescWrapper>

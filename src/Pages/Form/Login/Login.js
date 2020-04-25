@@ -39,7 +39,6 @@ class Login extends Component {
   componentDidMount() {
     const users = JSON.parse(localStorage.getItem("data")) || [];
     this.setState({ users: users });
-    console.log(users);
   }
 
   validateData = () => {
@@ -62,14 +61,25 @@ class Login extends Component {
     if (this.validateData()) {
       const userName = this.state.formFields.userName.value;
       const password = this.state.formFields.password.value;
-      this.state.users.map((data) => {
-        if (data.userName === userName && data.password === password) {
+      for (let index = 0; index < this.state.users.length; index++) {
+        let data = this.state.users;
+        if (
+          data[index].userName === userName &&
+          data[index].password === password
+        ) {
           this.setState({ errorMsg: null });
+          sessionStorage.setItem("authenticated",true);
           this.props.onLoggingIn();
           this.props.history.push("/home");
           return;
+        } else if (
+          data[index].userName === userName ||
+          data[index].password === password
+        ) {
+          this.setState({ errorMsg: "Username and Password dosent match" });
+          return;
         }
-      });
+      }
       this.setState({ errorMsg: "User does not exist.." });
     }
   };
@@ -115,7 +125,7 @@ class Login extends Component {
         toogleShow={() => this.toogleShow(data)}
       />
     ));
-    let errorMsg = null;
+    let errorMsg = <ErrorOutput></ErrorOutput>;
     if (!this.state.isFormFilled) {
       console.log(this.state.isFormFilled);
       errorMsg = (
@@ -144,9 +154,9 @@ class Login extends Component {
     );
   }
 }
-const mapDispatchToProps = dispatch =>{
-    return{
-        onLoggingIn:() =>dispatch({type:'LOGIN'})
-    }
-}
-export default connect(null,mapDispatchToProps)(Login);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoggingIn: () => dispatch({ type: "LOGIN" }),
+  };
+};
+export default connect(null, mapDispatchToProps)(Login);

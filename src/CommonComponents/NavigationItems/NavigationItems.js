@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 
-import { MainWrapper, ImgWrapper, Logo, Navigation } from "./style";
+import {connect} from 'react-redux';
+
+import {
+  MainWrapper,
+  ImgWrapper,
+  Logo,
+  Navigation,
+  LogoutButton,
+} from "./style";
 import AppLogo from "../../assets/images/logo.jpg";
 import NavigationItem from "./NavigatinItem/NavigationItem";
 
@@ -38,12 +46,17 @@ class NavigationItems extends Component {
         ],
         mapTo: "/page",
       },
-
       {
         id: "4",
         name: "Submit Recipe",
         subLinks: null,
         mapTo: "/submit-recipe",
+      },
+      {
+        id: "5",
+        name: "Log Out",
+        subLinks: null,
+        mapTo: "/",
       },
     ],
     hover: [false, false, false],
@@ -56,11 +69,12 @@ class NavigationItems extends Component {
     this.setState({ hover: oldState });
   };
   toggleMouseOut = (id) => {
-    // console.log(this.state.hover);
-    // let oldState = [...this.state.hover];
-    // oldState[id - 1] = !oldState[id - 1];
     this.setState({ hover: [false, false, false] });
   };
+  logOutHandler = () =>{
+    sessionStorage.setItem("authenticated",false);
+    this.props.onLogOut();
+  }
 
   render() {
     return (
@@ -74,11 +88,16 @@ class NavigationItems extends Component {
             hover={this.state.hover}
             mouseIn={this.toggleMouseIn}
             mouseOut={this.toggleMouseOut}
+            clicked=  {this.logOutHandler}
           />
         </Navigation>
       </MainWrapper>
     );
   }
 }
-
-export default NavigationItems;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLogOut: () => dispatch({ type: "LOGIN" }),
+  }
+}
+export default connect(null,mapDispatchToProps)(NavigationItems);

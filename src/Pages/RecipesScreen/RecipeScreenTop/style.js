@@ -4,24 +4,36 @@ export const TopWrapper = styled.div`
   display: flex;
   align-items: center;
   padding: 15px 0px 35px 0px;
+  position: relative;
+  height: 100px;
+  box-sizing: border-box;
 `;
 
 export const Recipe = styled.h2`
   color: #606060;
   font-weight: 500;
   padding-right: 50px;
-  font-size:25px;
+  font-size: 25px;
 `;
-export const ListorGridBox = styled.button`
-  width: 150px;
+export const Grid = styled.button`
+  width: 100px;
   height: 35px;
   border: none;
   outline: none;
   font-size: 14px;
-  transition: 0.2s ease-out;
-  color: ${(props) => (props.listView ? "white" : "gray")};
-  background-color: ${(props) => (props.listView ? "#8DC63F" : "#F2F2F2")};
+  transition: 0.2s ease-in-out;
+  color: ${(props) => (props.listView ? "gray" : "white")};
+  background-color: ${(props) => (props.listView ? "#F2F2F2" : "#8DC63F")};
   font-weight: 600;
-  border-radius: 3px;
-  cursor:pointer;
+  border-radius: 23px;
+  cursor: pointer;
+  position: ${(props) => (props.listView ? "unset" : "absolute")};
+  left: 215px;
+  border: ${(props) => (props.listView ? "2px solid #8DC63F" : "none")};
+`;
+
+export const List = styled(Grid)`
+  position: absolute;
+  left: 285px;
+  border: 2px solid #8dc63f;
 `;

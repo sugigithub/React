@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-
-
 export const Navigation = styled.nav`
   width: 700px;
   height: 100%;
@@ -27,3 +25,11 @@ export const ImgWrapper = styled.div`
 `;
 
 export const Logo = styled.img``;
+
+export const LogoutButton = styled.button`
+  outline: none;
+  border: none;
+  background: none;
+  color: #707070;
+  margin-top: 9px;
+`;

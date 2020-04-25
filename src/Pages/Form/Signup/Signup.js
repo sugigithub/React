@@ -105,12 +105,12 @@ componentDidMount(){
     }
     else{
       for(let i =0 ;i<this.state.signedInUsers.length;i++){
-          if(this.state.signedInUsers[i].userName === userName){
-            this.setState({errorMsg:"User name already exists."});
+          if(this.state.signedInUsers[i].email === email){
+            this.setState({errorMsg:"account already exists."});
             return false;
           }
-          else if(this.state.signedInUsers[i].email === email){
-            this.setState({errorMsg:"account already exists."});
+          else if(this.state.signedInUsers[i].userName === userName){
+            this.setState({errorMsg:"User name already taken."});
             return false;
           }
       }
@@ -122,7 +122,6 @@ componentDidMount(){
   onSubmitHandler = (event) => {
     event.preventDefault();
     if (this.validateData()) {
-      // this.setState({ isFormFilled: true, isPasswordMatch: true });
       var storeData = JSON.parse(localStorage.getItem("data")) || [];
       let logindata = {};
       for (const field in this.state.formFields) {
@@ -173,7 +172,7 @@ componentDidMount(){
         toogleShow={() => this.toogleShow(data)}
       />
     ));
-    let errorOutput = null;
+    let errorOutput = <ErrorOutput></ErrorOutput>;
     if (!this.state.isFormFilled) {
       errorOutput = (
         <ErrorOutput>
@@ -186,6 +185,7 @@ componentDidMount(){
     else if(this.state.errorMsg){
       errorOutput = <ErrorOutput>{this.state.errorMsg}</ErrorOutput>;
     }
+    
     return (
       <Wrapper>
         <Image img={loginBanner} login={true} />

@@ -1,14 +1,15 @@
 import React from "react";
 
-import {TopWrapper ,Recipe,ListorGridBox} from './style';
+import {TopWrapper ,Recipe,Grid,List} from './style';
 const RecipeScreenTop = (props) => {
   return (
     <TopWrapper>
       <Recipe>Latest Recipes</Recipe>
-      <ListorGridBox listView = {!props.listView} onClick = {props.clicked}>Grid View</ListorGridBox>
-      <ListorGridBox listView = {props.listView} onClick = {props.clicked}>List View</ListorGridBox>
+      <List listView = {!props.listView} onClick = {props.clicked}>List</List>
+      <Grid listView = {props.listView} onClick = {props.clicked}>Grid</Grid>
     </TopWrapper>
   );
 };
 
 export default RecipeScreenTop;
+// onClick = {props.clicked}
