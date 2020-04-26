@@ -10,7 +10,7 @@ const RecipeDetailScreen = (props) => {
   console.log(props);
   useEffect(() => {
     if (!recipeData) {
-      props.history.push("/home");
+      props.history.push("*");
     }
   }, []);
 

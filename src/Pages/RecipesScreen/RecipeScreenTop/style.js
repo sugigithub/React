@@ -21,7 +21,7 @@ export const Grid = styled.button`
   border: none;
   outline: none;
   font-size: 14px;
-  transition: 0.2s ease-in-out;
+  /* transition: 0.2s ease-in-out; */
   color: ${(props) => (props.listView ? "gray" : "white")};
   background-color: ${(props) => (props.listView ? "#F2F2F2" : "#8DC63F")};
   font-weight: 600;
@@ -34,6 +34,6 @@ export const Grid = styled.button`
 
 export const List = styled(Grid)`
   position: absolute;
-  left: 285px;
+  left: 282px;
   border: 2px solid #8dc63f;
 `;

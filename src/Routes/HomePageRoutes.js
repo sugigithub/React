@@ -5,8 +5,6 @@ import { Switch, Route ,Redirect} from "react-router-dom";
 import Navigation from "../CommonComponents/NavigationItems/NavigationItems";
 import RecipesScreen from "../Pages/RecipesScreen/Recipies";
 import RecipeDetailScreen from "../Pages/RecipeDetailScreen/RecipeDetailScreen";
-import PageNotFound from '../Pages/404/PageNotFound';
-
 
 const HomePageRoute = () => {
   return (
