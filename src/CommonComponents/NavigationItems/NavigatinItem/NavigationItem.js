@@ -1,7 +1,9 @@
 import React, { Fragment } from "react";
 
 import Dropdown from "../Dropdown/Dropdown";
-import { ListWrapper, List, DropDownWrapper, StyledLink } from "./style";
+import { ListWrapper, List, DropDownWrapper, StyledLink,DropdownIcon } from "./style";
+
+const border = ["-29px","-27px","-22px"]
 
 const navigationItem = (props) => {
   return (
@@ -31,15 +33,9 @@ const navigationItem = (props) => {
                   <StyledLink to={item.mapTo} activeClassName="curLink">
                     {item.name}
                   </StyledLink>
-                  <i
-                    className="fa fa-caret-down"
-                    style={{
-                      fontSize: "16px",
-                      color: "#707070",
-                      paddingTop: "35px",
-                      marginLeft: "-28px",
-                    }}
-                  ></i>
+                  <DropdownIcon
+                    className="fa fa-caret-down" value = {border[item.id - 1]}
+                  ></DropdownIcon>
                 </DropDownWrapper>
                 <Dropdown
                   hover={props.hover[item.id - 1]}

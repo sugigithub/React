@@ -24,9 +24,9 @@ export const List = styled.li`
 
 export const DropDownWrapper = styled.span`
   display: flex;
-  height:100%;
-  box-sizing:border-box;
-  width:100%;
+  height: 100%;
+  box-sizing: border-box;
+  width: 100%;
 `;
 export const StyledLink = styled(NavLink)`
   color: #707070;
@@ -35,13 +35,23 @@ export const StyledLink = styled(NavLink)`
   text-decoration: none;
   padding: 0px 5px;
   height: 100%;
-  padding-top:35px;
-  width:100%;
+  padding-top: 35px;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 500;
   &:hover {
     border-bottom: 3px solid #8dc63f;
+    border-bottom:${props => `3px solid ${props.theme.primaryColor}`};
   }
-  &.${props => props.activeClassName} {
+  &.${(props) => props.activeClassName} {
     border-bottom: 3px solid #8dc63f;
-	}
-  
+    border-bottom:${props => `3px solid ${props.theme.primaryColor}`};
+
+  }
+`;
+export const DropdownIcon = styled.i`
+  font-size: 16px;
+  color: #707070;
+  padding-top: 35px;
+  margin-left: ${(props) => props.value};
 `;

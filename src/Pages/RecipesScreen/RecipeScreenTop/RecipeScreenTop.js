@@ -12,4 +12,3 @@ const RecipeScreenTop = (props) => {
 };
 
 export default RecipeScreenTop;
-// onClick = {props.clicked}

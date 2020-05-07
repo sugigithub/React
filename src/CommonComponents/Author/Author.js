@@ -1,4 +1,5 @@
 import React from "react";
+import { withTheme } from 'styled-components'
 
 import Author from "../../assets/images/author-photo.jpg";
 import {AuthorWrapper,AuthorDetail,AuthorImage} from './style';
@@ -6,7 +7,7 @@ const author = (props) => {
   return (
     <AuthorWrapper>
       {/* <AuthorHead></AuthorHead> */}
-      <AuthorDetail color="#8dc63f" fontSize="17px" fontWeight="500">
+      <AuthorDetail color={props.theme.primaryColor} fontSize="17px" fontWeight="500">
         AUTHOR
       </AuthorDetail>
       <AuthorImage src={Author} />
@@ -24,4 +25,4 @@ const author = (props) => {
   );
 };
 
-export default author;
+export default withTheme(author);

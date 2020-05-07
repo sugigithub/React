@@ -2,7 +2,7 @@ import styled from "styled-components";
 export const Line = styled.div`
   width: 0%;
   height: 2px;
-  background-color: #8dc63f;
+  background-color: ${props => props.theme.primaryColor};
   transition: width 0.5s ease-in-out;
   position: absolute;
   bottom: -14px;
@@ -17,7 +17,7 @@ export const Input = styled.input`
   border-bottom: 2px solid #dbdbdb;
   outline: none;
   font-size: 20px;
-  color: #8dc63f;
+  color: ${props => props.theme.primaryColor};
   ::placeholder {
     font-size: 16px;
     color: #cccccc;
@@ -53,6 +53,6 @@ export const ShowHide = styled.p`
   position: absolute;
   top: 35px;
   left: 85%;
-  color:#8dc63f;
+  color:${props => props.theme.primaryColor};
   cursor:pointer;
 `;

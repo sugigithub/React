@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from "react";
 import {withRouter} from 'react-router-dom';
 
-// import styled from "styled-components";
-
 import RecipeBar from "./RecipeBar/RecipeBar";
 import Banner from "./Banner/Banner";
 

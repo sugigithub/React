@@ -28,7 +28,7 @@ export const BannerOverlay = styled.div`
 
 export const Text = styled.h2`
   color: #fff;
-  font-size: 50px;
+  font-size: 48px;
   padding: 20px 0px;
   width: 60%;
 `;
@@ -47,21 +47,22 @@ export const ViewRecipieBtn = styled.button`
 `;
 export const OverlayContet = styled.div`
   position: absolute;
-  padding: 60px 50px;
   display: block;
-  height: 100%;
   box-sizing: border-box;
-  padding: 5% 15%;
+  width: 960px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 `;
 export const IconsWrapper = styled.div`
   padding: 10px 0px;
-  width:fit-content;
+  width: fit-content;
   height: 35px;
 `;
 
 export const RecipieBtn = styled.button`
   display: inline-block;
-  background-color: #8dc63f;
+  background-color: ${props => props.theme.primaryColor};
   color: white;
   font-size: 14px;
   font-weight: bold;

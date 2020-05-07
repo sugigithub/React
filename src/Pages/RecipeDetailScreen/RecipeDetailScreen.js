@@ -7,7 +7,6 @@ import RecipeDetailBody from "./RecipeDetailBody/RecipeDetailBody";
 
 const RecipeDetailScreen = (props) => {
   const [searchText, setSearchText] = useState("");
-  console.log(props);
   useEffect(() => {
     if (!recipeData) {
       props.history.push("*");

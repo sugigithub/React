@@ -9,6 +9,7 @@ export const ListWrapper = styled.ul`
   height: 110px;
   width: 140px;
   border-top: 3px solid #8dc63f;
+  border-color:${props => props.theme.primaryColor};
   margin-top: -3px;
 `;
 export const List = styled.li`

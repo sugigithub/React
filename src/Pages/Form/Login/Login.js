@@ -127,7 +127,6 @@ class Login extends Component {
     ));
     let errorMsg = <ErrorOutput></ErrorOutput>;
     if (!this.state.isFormFilled) {
-      console.log(this.state.isFormFilled);
       errorMsg = (
         <ErrorOutput>
           All the fields should have atleast 4 characters..

@@ -7,7 +7,6 @@ import {
   ImgWrapper,
   Logo,
   Navigation,
-  LogoutButton,
 } from "./style";
 import AppLogo from "../../assets/images/logo.jpg";
 import NavigationItem from "./NavigatinItem/NavigationItem";
@@ -38,26 +37,27 @@ class NavigationItems extends Component {
       },
       {
         id: "3",
-        name: "pages",
+        name: "products",
         subLinks: [
           { id: 0, subLinkName: "Shortcodes" },
           { id: 1, subLinkName: "Typography" },
           { id: 2, subLinkName: "Contact" },
         ],
-        mapTo: "/page",
+        mapTo: "/products",
       },
       {
         id: "4",
-        name: "Submit Recipe",
-        subLinks: null,
-        mapTo: "/submit-recipe",
-      },
-      {
-        id: "5",
         name: "Log Out",
         subLinks: null,
         mapTo: "/",
       },
+      {
+        id: "5",
+        name: "Submit Recipe",
+        subLinks: null,
+        mapTo: "/submit-recipe",
+      },
+      
     ],
     hover: [false, false, false],
   };

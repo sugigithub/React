@@ -23,17 +23,17 @@ export const Grid = styled.button`
   font-size: 14px;
   /* transition: 0.2s ease-in-out; */
   color: ${(props) => (props.listView ? "gray" : "white")};
-  background-color: ${(props) => (props.listView ? "#F2F2F2" : "#8DC63F")};
+  background-color: ${(props) => (props.listView ? "#F2F2F2" : props.theme.primaryColor)};
   font-weight: 600;
   border-radius: 23px;
   cursor: pointer;
   position: ${(props) => (props.listView ? "unset" : "absolute")};
   left: 215px;
-  border: ${(props) => (props.listView ? "2px solid #8DC63F" : "none")};
+  border: ${(props) => (props.listView ? `2px solid ${props.theme.primaryColor}` : "none")};
 `;
 
 export const List = styled(Grid)`
   position: absolute;
   left: 282px;
-  border: 2px solid #8dc63f;
+  border:${props => `2px solid ${props.theme.primaryColor}`};
 `;

@@ -7,11 +7,11 @@ export const Navigation = styled.nav`
 
 export const MainWrapper = styled.div`
   height: 80px;
-  width: 100%;
-  // position: fixed;
+  margin: 0 auto;
+  width: 960px;
   background-color: white;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   top: 0;
   left: 0;
@@ -20,16 +20,7 @@ export const MainWrapper = styled.div`
 export const ImgWrapper = styled.div`
   box-sizing: border-box;
   background-color: white;
-  padding: 15px;
-  border-radius: 5px;
+  padding: 15px 0px;
 `;
 
 export const Logo = styled.img``;
-
-export const LogoutButton = styled.button`
-  outline: none;
-  border: none;
-  background: none;
-  color: #707070;
-  margin-top: 9px;
-`;

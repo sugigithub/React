@@ -6,7 +6,7 @@ export const Login = styled.button`
   border: none;
   outline: none;
   border-radius: 20px;
-  background-color: #8dc63f;
+  background-color: ${props => props.theme.primaryColor};
   color: #ffffff;
   font-size: 15px;
   font-weight: 600;
@@ -22,7 +22,7 @@ export const SignUpBtn = styled(Login)`
   padding-left: 35px;
   float: right;
   :hover {
-    background-color: #8dc63f;
+    background-color: ${props => props.theme.primaryColor};
     color: white;
   }
 `;

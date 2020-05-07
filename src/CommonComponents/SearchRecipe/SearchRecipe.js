@@ -1,5 +1,9 @@
 import React from "react";
-import { Wrapper, Input, RecipieBtn } from "./style";
+
+import {withTheme} from 'styled-components';
+
+import { Wrapper, Input, RecipieBtn,SearchIcon } from "./style";
+
 const searchRecipe = (props) => (
   <Wrapper>
     <Input
@@ -10,9 +14,9 @@ const searchRecipe = (props) => (
       id="search"
     />
     <RecipieBtn onClick={props.searchRecipe}>
-      <i className="fa fa-search" style={{ color: "#8dc63f" }}></i>
+      <SearchIcon className="fa fa-search"></SearchIcon>
     </RecipieBtn>
   </Wrapper>
 );
 
-export default searchRecipe;
+export default withTheme(searchRecipe);

@@ -99,7 +99,7 @@ export const RecipeDescription = styled.p`
   padding: 15px 0px;
 `;
 export const PrintButton = styled.button`
-  background-color: #8dc63f;
+  background-color: ${props => props.theme.primaryColor};
   color: white;
   font-size: 14px;
   font-weight: bold;

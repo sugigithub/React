@@ -12,7 +12,7 @@ export const Input = styled.input`
   width: 75%;
   padding: 12px 15px;
   outline: none;
-  border: 3px solid #8dc63f;
+  border: ${(props) => `3px solid ${props.theme.primaryColor}`};
   border-right: none;
   border-radius: 10px 0px 0px 10px;
   color: grey;
@@ -27,7 +27,11 @@ export const RecipieBtn = styled.button`
   width: 25%;
   border: none;
   outline: none;
-  border: 3px solid #8dc63f;
+  border: ${(props) => `3px solid ${props.theme.primaryColor}`};
   border-left: none;
   border-radius: 0px 10px 10px 0px;
+  color: ${(props) => props.theme.primaryColor};
 `;
+export const SearchIcon = styled.i`
+  color: inherit;
+`; 

@@ -26,8 +26,8 @@ export const Checkbox = styled.input`
       border-radius: 4px;
     }
     &:before {
-      background-color: #8dc63f;
-      border-color: #8dc63f;
+      background-color: ${props => props.theme.primaryColor};
+      border-color: ${props => props.theme.primaryColor};
     }
   }
 `;

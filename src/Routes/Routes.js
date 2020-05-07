@@ -10,14 +10,13 @@ import PageNotFound from "../Pages/404/PageNotFound";
 
 class Routes extends Component {
   render() {
-    console.log(this.props.isLoggedIn == true);
     return (
       <Fragment>
         <Switch>
           <Route path="/" exact component={Login} />
           <Route path="/sign-up" exact component={SignUp} />
           <Route
-            path={["/home", "/recipe-detail"]} exact
+            path={["/home", "/recipe-detail","/products","/products/:id"]} exact
             render={() =>
               this.props.isLoggedIn === "true" ? (
                 <HomePageRoute />
@@ -33,7 +32,6 @@ class Routes extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     isLoggedIn: state.isLoggedIn,
   };

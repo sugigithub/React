@@ -13,7 +13,7 @@ export const ViewAllBtn = styled.button`
     outline: none;
     font-size: 14px;
     color: white;
-    background-color: #8DC63F;
+    background-color: ${props => props.theme.primaryColor};
     font-weight: 600;
     border-radius: 3px;
     cursor: pointer;
