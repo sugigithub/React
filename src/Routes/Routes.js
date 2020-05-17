@@ -16,7 +16,14 @@ class Routes extends Component {
           <Route path="/" exact component={Login} />
           <Route path="/sign-up" exact component={SignUp} />
           <Route
-            path={["/home", "/recipe-detail","/products","/products/:id"]} exact
+            path={[
+              "/home",
+              "/recipe-detail",
+              "/products",
+              "/products/:id",
+              "/submit-recipe",
+            ]}
+            exact
             render={() =>
               this.props.isLoggedIn === "true" ? (
                 <HomePageRoute />

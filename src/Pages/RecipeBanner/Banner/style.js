@@ -49,7 +49,7 @@ export const OverlayContet = styled.div`
   position: absolute;
   display: block;
   box-sizing: border-box;
-  width: 960px;
+  width: 950px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);

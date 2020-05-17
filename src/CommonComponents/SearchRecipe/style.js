@@ -10,7 +10,7 @@ export const Wrapper = styled.form`
 export const Input = styled.input`
   font-size: 15px;
   width: 75%;
-  padding: 12px 15px;
+    padding: 5px 5px;
   outline: none;
   border: ${(props) => `3px solid ${props.theme.primaryColor}`};
   border-right: none;
@@ -24,7 +24,7 @@ export const RecipieBtn = styled.button`
   color: white;
   font-size: 14px;
   padding: 10px 0;
-  width: 25%;
+  width: 30%;
   border: none;
   outline: none;
   border: ${(props) => `3px solid ${props.theme.primaryColor}`};

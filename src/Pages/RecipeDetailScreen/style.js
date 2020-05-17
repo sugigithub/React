@@ -7,7 +7,7 @@ export const RecipeDetailWrapper = styled.div`
 `;
 
 export const RecipeDescWrapper = styled.div`
-  width: 960px;
+  width: 950px;
   margin: 0 auto;
   display: flex;
 `;

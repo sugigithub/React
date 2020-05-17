@@ -12,7 +12,7 @@ export const ProductsHeader = styled.div`
 export const ProductsText = styled.p`
   font-size: 24px;
   font-weight: 500;
-  width: 960px;
+  width: 950px;
   height: 100%;
   color: #606060;
   display: flex;

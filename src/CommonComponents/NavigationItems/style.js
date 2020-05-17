@@ -8,7 +8,7 @@ export const Navigation = styled.nav`
 export const MainWrapper = styled.div`
   height: 80px;
   margin: 0 auto;
-  width: 960px;
+  width: 950px;
   background-color: white;
   display: flex;
   justify-content: space-between;

@@ -34,6 +34,7 @@ export const Grid = styled.button`
 
 export const List = styled(Grid)`
   position: absolute;
-  left: 282px;
+  left: 278px;
   border:${props => `2px solid ${props.theme.primaryColor}`};
+  padding-left: ${(props) => (props.listView ? "23px" : "0px")};
 `;

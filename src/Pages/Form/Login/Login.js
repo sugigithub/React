@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Input from "../Input/Input";
-import { FormElementsWrapper, SignupText, ErrorOutput } from "../Signup/style";
-import { Wrapper, Image } from "./style";
+import Input from "../../../CommonComponents/Input/Input";
+import {SignupText, ErrorOutput } from "../Signup/style";
+import { Wrapper, Image ,FormElementsWrapper} from "./style";
 import Button from "../button/button";
 import loginBanner from "../../../assets/images/receipe.jpeg";
 

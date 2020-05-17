@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Input from "../Input/Input";
+import Input from "../../../CommonComponents/Input/Input";
 import loginBanner from "../../../assets/images/receipe.jpeg";
 import {
   Wrapper,
