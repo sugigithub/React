@@ -18,7 +18,7 @@ export const Dropdown = styled.ul`
   width: 100%;
   background-color: #f6f6f6;
   z-index: 1;
-  /* display: ; */
+  display: ${props => props.show? "block":"none"};
   border: 1px solid #dbdbdb;
   box-sizing: border-box;
   max-height: 180px;
@@ -66,10 +66,10 @@ export const Input = styled.input`
     border-bottom: ${(props) => (props.submit ? "2px solid #dbdbdb" : "none")};
     border-color: ${(props) =>
       props.submit ? props.theme.primaryColor : "none"};
-    :focus + ul {
+    /* :focus + ul {
       display: block;
       width:100%;
-    }
+    } */
   }
 `;
 export const FieldWrapper = styled.div`

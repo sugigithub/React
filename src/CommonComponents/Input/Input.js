@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
 import {
   FieldWrapper,
@@ -21,7 +21,8 @@ import {
   NewIng,
 } from "./style";
 
-const input = (props) => {
+const Inputs = (props) => {
+  const [show ,setShow] = useState(false);
   let inputElement = null;
   switch (props.formConfig.elementType) {
     case "input":
@@ -47,28 +48,35 @@ const input = (props) => {
       break;
     case "select":
       const dropDownOption = (
-        <Dropdown>
-            {props.options.map((val, i) => {
-              return (
-                <ListItem key={i} onClick = {(event) => props.setDropdown(event,val)}>
-                  {val}
-                </ListItem>
-              );
-            })}
-          </Dropdown>
-      )
+        <Dropdown show = {show}>
+          {props.options.map((val, i) => {
+            return (
+              <ListItem
+              onClick={()=>setShow(false)}
+                key={i}
+                onClick={(event) => props.setDropdown(event, val)}
+              >
+                {val}
+              </ListItem>
+            );
+          })}
+        </Dropdown>
+      );
       inputElement = (
         <Fragment>
-          <Input
-            id={props.id}
-            {...props.formConfig.elementConfig}
-            value={props.formConfig.value}
-            onChange={props.filterAndSaveValues}
-            onFocus={props.onFocus}
-            onBlur={props.onBlur}
-            options={props.options}
-            submit={props.submit}
-          ></Input>
+          <div onClick={()=>{setShow(true);
+            console.log(show)}}>
+            <Input
+              id={props.id}
+              {...props.formConfig.elementConfig}
+              value={props.formConfig.value}
+              onChange={props.filterAndSaveValues}
+              onFocus={props.onFocus}
+              onBlur={props.onBlur}
+              options={props.options}
+              submit={props.submit}
+            ></Input>
+          </div>
           {dropDownOption}
           {/* <Dropdown >
           <ListItem key={"i"} onClick = {() => props.setDropdown("val")}>
@@ -109,14 +117,14 @@ const input = (props) => {
             <IngInput
               placeholder={props.formConfig.elementConfig.placeholder[0]}
               value={props.formConfig.value[index].value1}
-              onChange={(event) => props.setIngs(event,"quantity",index)}
+              onChange={(event) => props.setIngs(event, "quantity", index)}
             />
             <IngInput
               placeholder={props.formConfig.elementConfig.placeholder[1]}
               value={props.formConfig.value[index].value2}
-              onChange={(event) => props.setIngs(event,"name",index)}
+              onChange={(event) => props.setIngs(event, "name", index)}
             />
-            <IngIconWrapper delete onClick = {() => props.deleteIngs(index)}>
+            <IngIconWrapper delete onClick={() => props.deleteIngs(index)}>
               <IngIcon className="fa fa-times" aria-hidden="true"></IngIcon>
             </IngIconWrapper>
           </PreviewBar>
@@ -163,4 +171,4 @@ const input = (props) => {
   );
 };
 
-export default input;
+export default Inputs;
