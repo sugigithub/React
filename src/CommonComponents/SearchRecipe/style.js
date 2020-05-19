@@ -10,7 +10,7 @@ export const Wrapper = styled.form`
 export const Input = styled.input`
   font-size: 15px;
   width: 75%;
-    padding: 5px 5px;
+  padding: 5px 15px;
   outline: none;
   border: ${(props) => `3px solid ${props.theme.primaryColor}`};
   border-right: none;
@@ -34,4 +34,4 @@ export const RecipieBtn = styled.button`
 `;
 export const SearchIcon = styled.i`
   color: inherit;
-`; 
+`;

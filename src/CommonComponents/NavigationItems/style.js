@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Navigation = styled.nav`
-  width: 700px;
+  width: 600px;
   height: 100%;
 `;
 

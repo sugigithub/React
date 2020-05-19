@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import Dropdown from "../Dropdown/Dropdown";
 import { ListWrapper, List, DropDownWrapper, StyledLink,DropdownIcon } from "./style";
 
-const border = ["-29px","-27px","-22px"]
+const border = ["-30px","-27px"]
 
 const navigationItem = (props) => {
   return (

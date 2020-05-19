@@ -25,13 +25,11 @@ const Wrapper1 = styled.div`
 function App() {
   return (
     <Themes>
-      <Fragment>
         <Wrapper>
           <Wrapper1>
             <Routes />
           </Wrapper1>
         </Wrapper>
-      </Fragment>
     </Themes>
   );
 }

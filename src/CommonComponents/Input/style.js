@@ -136,6 +136,7 @@ export const ListItem = styled.li`
   padding-left: 5px;
   padding: 7px 0px 0px 5px;
   font-size: 16px;
+  cursor:pointer;
   :hover {
     background-color: ${(props) => props.theme.primaryColor};
     color: white;
@@ -210,7 +211,7 @@ export const IngInput = styled.input`
   padding-left: 10px;
   margin: 15px 0px;
   height: 37px;
-  width: 40%;
+  width: ${props => props.inpLen};
   color: ${(props) => props.theme.primaryColor};
   ::placeholder {
     font-size: 16px;
@@ -228,12 +229,14 @@ export const IngInput = styled.input`
 export const IngIcon = styled.i`
   height: 100%;
   color: inherit;
+  cursor: inherit;
 `;
 
 export const IngIconWrapper = styled.div`
   width: 5%;
   text-align: center;
   background-color: #eeeeee;
+  cursor: ${(props) => (props.delete ? "pointer" : "move")};
   :hover {
     background-color: ${(props) => (props.delete ? "red" : "#eeeeee")};
     color: ${(props) => (props.delete ? "white" : "unset")};

@@ -22,7 +22,7 @@ import {
 } from "./style";
 
 const Inputs = (props) => {
-  const [show ,setShow] = useState(false);
+  const [show, setShow] = useState(false);
   let inputElement = null;
   switch (props.formConfig.elementType) {
     case "input":
@@ -48,14 +48,10 @@ const Inputs = (props) => {
       break;
     case "select":
       const dropDownOption = (
-        <Dropdown show = {show}>
+        <Dropdown show={show && props.formConfig.arrow === "up"}>
           {props.options.map((val, i) => {
             return (
-              <ListItem
-              onClick={()=>setShow(false)}
-                key={i}
-                onClick={(event) => props.setDropdown(event, val)}
-              >
+              <ListItem key={i} onMouseDown={() => props.setDropdown(val)}>
                 {val}
               </ListItem>
             );
@@ -64,8 +60,11 @@ const Inputs = (props) => {
       );
       inputElement = (
         <Fragment>
-          <div onClick={()=>{setShow(true);
-            console.log(show)}}>
+          <div
+            onClick={() => {
+              setShow(true);
+            }}
+          >
             <Input
               id={props.id}
               {...props.formConfig.elementConfig}
@@ -78,14 +77,6 @@ const Inputs = (props) => {
             ></Input>
           </div>
           {dropDownOption}
-          {/* <Dropdown >
-          <ListItem key={"i"} onClick = {() => props.setDropdown("val")}>
-                  {"val"}
-                </ListItem>
-                <ListItem key={"i1"} onClick = {() => props.setDropdown("val1")}>
-                  {"val"}
-                </ListItem>
-                </Dropdown> */}
         </Fragment>
       );
       break;
@@ -110,20 +101,32 @@ const Inputs = (props) => {
     case "addMultiple":
       const ing = props.formConfig.value.map((ele, index) => {
         return (
-          <PreviewBar key={index}>
+          <PreviewBar key={index} draggable>
             <IngIconWrapper>
-              <IngIcon className="fa fa-cog" aria-hidden="true"></IngIcon>
+              <IngIcon
+                className="fas fa-carrot"
+                aria-hidden="true"
+                delete
+              ></IngIcon>
             </IngIconWrapper>
             <IngInput
               placeholder={props.formConfig.elementConfig.placeholder[0]}
               value={props.formConfig.value[index].value1}
               onChange={(event) => props.setIngs(event, "quantity", index)}
+              inpLen={`${
+                80 / props.formConfig.elementConfig.placeholder.length
+              }%`}
             />
-            <IngInput
-              placeholder={props.formConfig.elementConfig.placeholder[1]}
-              value={props.formConfig.value[index].value2}
-              onChange={(event) => props.setIngs(event, "name", index)}
-            />
+            {props.formConfig.elementConfig.placeholder.length > 1 ? (
+              <IngInput
+                placeholder={props.formConfig.elementConfig.placeholder[1]}
+                value={props.formConfig.value[index].value2}
+                onChange={(event) => props.setIngs(event, "name", index)}
+                inpLen={`${
+                  80 / props.formConfig.elementConfig.placeholder.length
+                }%`}
+              />
+            ) : null}
             <IngIconWrapper delete onClick={() => props.deleteIngs(index)}>
               <IngIcon className="fa fa-times" aria-hidden="true"></IngIcon>
             </IngIconWrapper>
@@ -133,7 +136,11 @@ const Inputs = (props) => {
       inputElement = (
         <Fragment>
           {ing}
-          <NewIng onClick={props.addIngHandler}>Add new ingredient</NewIng>
+          <NewIng onClick={props.addIngHandler}>
+            {props.formConfig.elementConfig.placeholder.length > 1
+              ? "Add new ingredient"
+              : "Add Steps"}
+          </NewIng>
         </Fragment>
       );
       break;

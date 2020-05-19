@@ -15,18 +15,18 @@ class NavigationItems extends Component {
   state = {
     listItems: [
       { id: "0", name: "Home", subLinks: null, mapTo: "/home" },
+      // {
+      //   id: "1",
+      //   name: "Demos",
+      //   subLinks: [
+      //     { id: 0, subLinkName: "Shortcodes" },
+      //     { id: 1, subLinkName: "Typography" },
+      //     { id: 2, subLinkName: "Contact" },
+      //   ],
+      //   mapTo: "/Demos",
+      // },
       {
         id: "1",
-        name: "Demos",
-        subLinks: [
-          { id: 0, subLinkName: "Shortcodes" },
-          { id: 1, subLinkName: "Typography" },
-          { id: 2, subLinkName: "Contact" },
-        ],
-        mapTo: "/Demos",
-      },
-      {
-        id: "2",
         name: "Recipes",
         subLinks: [
           { id: 0, subLinkName: "Shortcodes" },
@@ -36,8 +36,8 @@ class NavigationItems extends Component {
         mapTo: "/recipe-detail",
       },
       {
-        id: "3",
-        name: "products",
+        id: "2",
+        name: "Products",
         subLinks: [
           { id: 0, subLinkName: "Shortcodes" },
           { id: 1, subLinkName: "Typography" },
@@ -46,17 +46,18 @@ class NavigationItems extends Component {
         mapTo: "/products",
       },
       {
+        id: "3",
+        name: "Submit Recipe",
+        subLinks: null,
+        mapTo: "/submit-recipe",
+      },
+      {
         id: "4",
         name: "Log Out",
         subLinks: null,
         mapTo: "/",
       },
-      {
-        id: "5",
-        name: "Submit Recipe",
-        subLinks: null,
-        mapTo: "/submit-recipe",
-      },
+     
       
     ],
     hover: [false, false, false],

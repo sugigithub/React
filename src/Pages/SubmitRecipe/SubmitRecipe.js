@@ -26,8 +26,24 @@ const HeadingText = styled.p`
   align-items: center;
   margin: 0 auto;
 `;
-
-const FormWrapper = styled.div`
+const SubmitRecipeBtn = styled.button`
+  background-color: ${(props) => props.theme.primaryColor};
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 0;
+  height: 40px;
+  margin-bottom: 20px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  &:hover {
+    background-color: #808080;
+  }
+  width:150px;
+  border-radius:3px;
+`;
+const FormWrapper = styled.form`
   width: 950px;
   display: flex;
   flex-direction: column;
@@ -57,7 +73,7 @@ class SubmitRecipe extends Component {
         value: "",
       },
       Summary: {
-        label: "Short Summary",
+        label: "Description",
         elementType: "textarea",
         elementConfig: {
           type: "text",
@@ -97,14 +113,11 @@ class SubmitRecipe extends Component {
       },
       directions: {
         label: "Directions",
-        elementType: "textarea",
+        elementType: "addMultiple",
         elementConfig: {
-          type: "text",
-          maxLength: "500",
-          placeholder: "Type the directions here..",
-          cols: "5",
+          placeholder: ["Enter the Steps"],
         },
-        value: "",
+        value: [{ value1: "", value2: "" }],
       },
       ingredients: {
         label: "Ingredients",
@@ -117,7 +130,7 @@ class SubmitRecipe extends Component {
         },
         value: [{ value1: "", value2: "" }],
       },
-      yeild: {
+      yield: {
         label: "yeild",
         elementType: "input",
         elementConfig: {
@@ -135,22 +148,19 @@ class SubmitRecipe extends Component {
         },
         value: "",
       },
-      Allergens: {
-        label: "Choose Allergens",
+      Serves: {
+        label: "Serves",
         elementType: "select",
         elementConfig: {
           type: "text",
           placeholder: "Select",
         },
         options: [
-          "Peanut",
-          "Milk",
-          "Egg",
-          "Wheat",
-          "Soy",
-          "Fish",
-          "Shell Fish",
-          "Tree Nuts",
+          "2 peoples",
+          "3 peoples",
+          "4 peoples",
+          "6 peoples",
+          "More than 6",
         ],
         searchOptions: [],
         value: "",
@@ -216,8 +226,12 @@ class SubmitRecipe extends Component {
     oldstate[data] = newstate;
     this.setState({ formFields: oldstate });
   };
-  setDropdownValue = (event,value) => {
-    console.log(value);
+  setDropdownValue = (data, value) => {
+    let oldstate = { ...this.state.formFields };
+    let newstate = { ...oldstate.data };
+    newstate.value = value;
+    oldstate[data].value = newstate.value;
+    this.setState({ formFields: oldstate });
   };
   uploadImage = (event, data) => {
     let oldstate = { ...this.state.formFields };
@@ -226,39 +240,44 @@ class SubmitRecipe extends Component {
     oldstate[data].value = newstate.value;
     this.setState({ formFields: oldstate });
   };
-  addIngHandler = (data) => {
+  addIngHandler = (event,data) => {
+    event.preventDefault();
     let oldstate = { ...this.state.formFields };
     let newstate = { ...oldstate[data] };
     let tmp = [...newstate.value];
-    tmp.push({ value1: "", value2: "" });
+    if (newstate.value[0].hasOwnProperty("value2")) {
+      tmp.push({ value1: "", value2: "" });
+    } else {
+      tmp.push({ value1: "" });
+    }
     newstate.value = tmp;
     oldstate[data] = newstate;
     this.setState({ formFields: oldstate });
   };
-  setIngs = (event, data, index) => {
+  setIngs = (event, value, index, data) => {
     let oldstate = { ...this.state.formFields };
-    let newstate = { ...oldstate.ingredients };
+    let newstate = { ...oldstate[data] };
     let tmp = [...newstate.value];
     let tmpObj = { ...tmp[index] };
-    if (data === "quantity") {
+    if (value === "quantity") {
       tmpObj.value1 = event.target.value;
-    } else if (data === "name") {
+    } else if (value === "name") {
       tmpObj.value2 = event.target.value;
     }
     tmp[index] = tmpObj;
     newstate.value = tmp;
-    oldstate.ingredients = newstate;
-    this.setState({formFields:oldstate})
+    oldstate[data] = newstate;
+    this.setState({ formFields: oldstate });
   };
-  deleteIngs = (index) =>{
+  deleteIngs = (index, data) => {
     let oldstate = { ...this.state.formFields };
-    let newstate = { ...oldstate.ingredients };
+    let newstate = { ...oldstate[data] };
     let tmp = [...newstate.value];
     tmp.splice(index, 1);
     newstate.value = tmp;
-    oldstate.ingredients = newstate;
-    this.setState({formFields:oldstate});
-  }
+    oldstate[data] = newstate;
+    this.setState({ formFields: oldstate });
+  };
   render() {
     let form = Object.keys(this.state.formFields);
     const formElements = form.map((data) => (
@@ -277,14 +296,16 @@ class SubmitRecipe extends Component {
           this.saveValues(event, data);
         }}
         uploadImage={(event) => this.uploadImage(event, data)}
-        setDropdown={this.setDropdownValue}
+        setDropdown={(val) => this.setDropdownValue(data, val)}
         filterAndSaveValues={(event) => {
           this.filterAndSaveValues(event, data);
         }}
         toogleShow={() => this.toogleShow(data)}
-        addIngHandler={() => this.addIngHandler(data)}
-        setIngs={this.setIngs}
-        deleteIngs = {this.deleteIngs}
+        addIngHandler={(event) => this.addIngHandler(event,data)}
+        setIngs={(event, value, index) =>
+          this.setIngs(event, value, index, data)
+        }
+        deleteIngs={(index) => this.deleteIngs(index, data)}
         submit
       />
     ));
@@ -293,7 +314,10 @@ class SubmitRecipe extends Component {
         <Header>
           <HeadingText>Submit Recipe</HeadingText>
         </Header>
-        <FormWrapper>{formElements}</FormWrapper>
+        <FormWrapper>
+          {formElements}
+          <SubmitRecipeBtn>Submit Recipe</SubmitRecipeBtn>
+        </FormWrapper>
       </Wrapper>
     );
   }

@@ -30,7 +30,7 @@ export const Text = styled.h2`
   color: #fff;
   font-size: 48px;
   padding: 20px 0px;
-  width: 60%;
+  width: 56%;
 `;
 export const ViewRecipieBtn = styled.button`
   border: 3px solid #fff;
