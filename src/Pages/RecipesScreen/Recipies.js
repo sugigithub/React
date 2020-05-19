@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 
 import { recipesDetail } from "../../Data/Recipe";
 import HomePageRecipe from "./HomePageRecipe/HomePageRecipe";
+import axios from "../../axios/axios";
 
 class recipesScreen extends Component {
   componentDidMount() {
@@ -19,23 +20,56 @@ class recipesScreen extends Component {
       }
     };
     scrollToAnchor();
+    this.getRecipes();
   }
 
+  state = {
+    latestRecipes: null,
+    listView: false,
+    searchRecipe: null,
+    searchText: "",
+  };
+  getRecipes = () => {
+    axios.get("/latest-recipes.json").then((res) => {
+      console.log(Object.values(res.data));
+      let latestRecipes = [];
+      Object.values(res.data).map((data,index) => {
+        const structure = {
+          id: index,
+          imgUrl: data.imgUrl,
+          bannerImgUrl: data.bannerImgUrl,
+          name: data.name,
+          title: data.title,
+          reviews: data.reviews,
+          description: data.description,
+          ratings: data.ratings,
+          details: {
+            servings: data.details.servings,
+            prepTime: data.details.prepTime,
+            Calories: data.details.Calories,
+            cooking: data.details.cooking,
+            author: data.details.author,
+          },
+          ingredients: data.ingredients.map((data, index) => {
+            return data;
+          }),
+          directions: data.directions.map((data, index) => {
+            return data;
+          }),
+        };
+        latestRecipes.push(structure);
+      });
+      console.log(latestRecipes);
+    });
+  };
   filterRecipe = (text) => {
     let tempRecipeArray = [];
     recipesDetail.filter((data) => {
       if (data.name.toLowerCase().includes(text)) {
         return tempRecipeArray.push(data);
       }
-    }
-    );
+    });
     this.setState({ searchRecipe: tempRecipeArray });
-  };
-
-  state = {
-    listView: false,
-    searchRecipe: null,
-    searchText: "",
   };
 
   listViewHandler = () => {
@@ -57,7 +91,6 @@ class recipesScreen extends Component {
     const searchText = event.target.value;
     this.setState({ searchText: searchText });
     this.filterRecipe(searchText);
-    
   };
 
   viewAllRecipeHandler = () => {

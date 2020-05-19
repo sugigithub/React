@@ -29,6 +29,7 @@ class ProductsMain extends Component {
     axios
       .get("/shop-item.json")
       .then((res) => {
+        console.log(res);
         let cartData = [];
         const data = res.data;
         data.map((item, index) => {

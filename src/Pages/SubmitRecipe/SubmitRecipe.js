@@ -1,55 +1,9 @@
 import React, { Component, Fragment } from "react";
 
-import styled from "styled-components";
 
 import Input from "../../CommonComponents/Input/Input";
-import { array } from "prop-types";
-
-const Wrapper = styled.div`
-  height: 100%;
-  width: 100%;
-`;
-
-const Header = styled.div`
-  background-color: #f6f6f6;
-  width: 100%;
-  height: 100px;
-`;
-
-const HeadingText = styled.p`
-  font-size: 24px;
-  font-weight: 500;
-  width: 950px;
-  height: 100%;
-  color: #606060;
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
-`;
-const SubmitRecipeBtn = styled.button`
-  background-color: ${(props) => props.theme.primaryColor};
-  color: white;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 10px 0;
-  height: 40px;
-  margin-bottom: 20px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  &:hover {
-    background-color: #808080;
-  }
-  width:150px;
-  border-radius:3px;
-`;
-const FormWrapper = styled.form`
-  width: 950px;
-  display: flex;
-  flex-direction: column;
-  margin: 0px auto;
-  padding: 20px 0px;
-`;
+import {Wrapper,Header,HeadingText,SubmitRecipeBtn,FormWrapper} from './style';
+import axios from '../../axios/axios';
 
 class SubmitRecipe extends Component {
   state = {
@@ -117,7 +71,7 @@ class SubmitRecipe extends Component {
         elementConfig: {
           placeholder: ["Enter the Steps"],
         },
-        value: [{ value1: "", value2: "" }],
+        value: [{ value1: ""}],
       },
       ingredients: {
         label: "Ingredients",
@@ -202,7 +156,6 @@ class SubmitRecipe extends Component {
     let newstate = { ...oldstate[data] };
     newstate.value = event.target.value;
     const inpTxt = event.target.value;
-    console.log(newstate.searchOptions);
     let searchOptions = [];
     for (let i = 0; i < newstate.options.length; i++) {
       if (newstate.options[i].toLowerCase().includes(inpTxt.toLowerCase())) {
@@ -210,14 +163,12 @@ class SubmitRecipe extends Component {
         searchOptions.push(newstate.options[i]);
       }
     }
-    console.log(searchOptions);
     if (searchOptions.length === 0) {
       searchOptions = [];
     }
     newstate.searchOptions = searchOptions;
     oldstate[data] = newstate;
     this.setState({ formFields: oldstate });
-    // newstate.options.
   };
   dropDownHandler = (data, state) => {
     let oldstate = { ...this.state.formFields };
@@ -240,7 +191,7 @@ class SubmitRecipe extends Component {
     oldstate[data].value = newstate.value;
     this.setState({ formFields: oldstate });
   };
-  addIngHandler = (event,data) => {
+  addIngHandler = (event, data) => {
     event.preventDefault();
     let oldstate = { ...this.state.formFields };
     let newstate = { ...oldstate[data] };
@@ -278,6 +229,37 @@ class SubmitRecipe extends Component {
     oldstate[data] = newstate;
     this.setState({ formFields: oldstate });
   };
+  saveRecipeDetail = (event) =>{
+    event.preventDefault();
+
+    let form = Object.keys(this.state.formFields);
+      let reviews = [1,2,3,4,5]
+      const recipedata = {
+        imgUrl: "imgUrl",
+        bannerImgUrl: "bannerImgUrl",
+        name: this.state.formFields.recipeTitle.value,
+        title: this.state.formFields.Category.value,
+        reviews: reviews[Math.floor(Math.random() * reviews.length)],
+        description: this.state.formFields.Summary.value,
+        ratings: reviews[Math.floor(Math.random() * reviews.length)],
+        details: {
+          servings: this.state.formFields.Serves.value,
+          prepTime: this.state.formFields.prepTime.value,
+          Calories: this.state.formFields.yield.value,
+          cooking: this.state.formFields.cookingTime.value,
+          author: "By Santro Fortin",
+        },
+        ingredients: this.state.formFields.ingredients.value.map((data, index) => {
+          return data.value1+" "+data.value2
+        }),
+        directions: this.state.formFields.directions.value.map((data, index) => {
+          return data.value1;
+        }),
+      }
+      axios.post("/latest-recipes.json",recipedata).then((res) =>{
+        console.log("success");
+      })
+  }
   render() {
     let form = Object.keys(this.state.formFields);
     const formElements = form.map((data) => (
@@ -301,7 +283,7 @@ class SubmitRecipe extends Component {
           this.filterAndSaveValues(event, data);
         }}
         toogleShow={() => this.toogleShow(data)}
-        addIngHandler={(event) => this.addIngHandler(event,data)}
+        addIngHandler={(event) => this.addIngHandler(event, data)}
         setIngs={(event, value, index) =>
           this.setIngs(event, value, index, data)
         }
@@ -314,9 +296,9 @@ class SubmitRecipe extends Component {
         <Header>
           <HeadingText>Submit Recipe</HeadingText>
         </Header>
-        <FormWrapper>
+        <FormWrapper autocomplete="off">
           {formElements}
-          <SubmitRecipeBtn>Submit Recipe</SubmitRecipeBtn>
+          <SubmitRecipeBtn onClick = {(event) =>this.saveRecipeDetail(event)}>Submit Recipe</SubmitRecipeBtn>
         </FormWrapper>
       </Wrapper>
     );
