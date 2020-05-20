@@ -6,7 +6,7 @@ import { ProductsPageWrapper, ProductsHeader, ProductsText } from "./style";
 import ProductsMain from "./ProductsMain/ProductsMain";
 import ProductDetail from "../ProductDetail/ProductDetail";
 
-const Products = (props) => {
+const Products = () => {
   return (
     <ProductsPageWrapper>
       <ProductsHeader>
@@ -15,7 +15,6 @@ const Products = (props) => {
       <Switch>
         <Route path="/products" exact component={ProductsMain} />
         <Route path="/products/:id" exact component={ProductDetail} />
-        {/* <ProductsMain /> */}
       </Switch>
     </ProductsPageWrapper>
   );

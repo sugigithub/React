@@ -5,6 +5,7 @@ import { withRouter } from "react-router";
 import CartItem from "../cartItems/CartItems";
 import Loader from "../../../CommonComponents/Spinner/Spinner";
 import axios from "../../../axios/axios";
+import withErrorHandler from '../../../hoc/withErrorHandler';
 import {
   ProductCard,
   Image,
@@ -16,6 +17,7 @@ import {
   CartIcon,
   ProductsWrapper,
   Items,
+  ProductsText
 } from "../style";
 
 class ProductsMain extends Component {
@@ -23,13 +25,13 @@ class ProductsMain extends Component {
     shopDetails: null,
     cartItems: [],
     loading: false,
+    error:false
   };
 
   componentDidMount() {
     axios
       .get("/shop-item.json")
       .then((res) => {
-        console.log(res);
         let cartData = [];
         const data = res.data;
         data.map((item, index) => {
@@ -46,10 +48,11 @@ class ProductsMain extends Component {
           };
           cartData.push(structure);
         });
-        this.setState({ shopDetails: cartData });
+        this.setState({ shopDetails: cartData ,error:false});
         this.storeCartItems();
       })
       .catch((err) => {
+        this.setState({error:true})
         console.log(err);
       });
   }
@@ -68,6 +71,7 @@ class ProductsMain extends Component {
       if (parseInt(cartCount.count) === -1 && index !== undefined) {
         cartData.splice(index, 1);
       } else if (index === undefined && parseInt(cartCount.count) === 0) {
+        console.log("here")
         let cartItem = this.state.shopDetails[parseInt(cartCount.id)];
         let newCart = {
           ...cartItem,
@@ -75,6 +79,8 @@ class ProductsMain extends Component {
         };
         cartData.push(newCart);
       } else if (parseInt(cartCount.count) > 0) {
+        console.log(cartData[0]);
+        console.log(index);
         cartData[index].count = parseInt(cartCount.count);
       }
     } else {
@@ -116,6 +122,8 @@ class ProductsMain extends Component {
       this.setState({ loading: false });
       this.setState({ cartItems: [] });
       sessionStorage.removeItem("cartData");
+    }).catch(err=>{
+      this.setState({ loading: false });
     });
   };
   showDetailHandler = (product) => {
@@ -130,7 +138,9 @@ class ProductsMain extends Component {
   };
   render() {
     let productCards = <Loader />;
-
+    if(this.state.error){
+      productCards = <ProductsText>Something went wrong</ProductsText>;
+    }
     if (this.state.shopDetails) {
       productCards = this.state.shopDetails.map(
         (product) =>
@@ -165,4 +175,4 @@ class ProductsMain extends Component {
   }
 }
 
-export default withRouter(ProductsMain);
+export default withErrorHandler(withRouter(ProductsMain),axios);

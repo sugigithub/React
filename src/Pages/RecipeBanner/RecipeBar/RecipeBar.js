@@ -7,12 +7,10 @@ const recipieBar = (props) => {
     return (
       <Recipie
         key={item.id}
-        active={props.active === item.id ? true : false}
+        active={props.active === item.id}
         onClick={() => props.clicked(item.id)}
       >
-        <RecipieText active={props.active === item.id ? true : false}>
-          {item.name}
-        </RecipieText>
+        <RecipieText active={props.active === item.id}>{item.name}</RecipieText>
       </Recipie>
     );
   });

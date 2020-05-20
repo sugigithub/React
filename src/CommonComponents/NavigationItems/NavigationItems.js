@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 
-import {connect} from 'react-redux';
+import { connect } from "react-redux";
 
-import {
-  MainWrapper,
-  ImgWrapper,
-  Logo,
-  Navigation,
-} from "./style";
+import { MainWrapper, ImgWrapper, Logo, Navigation } from "./style";
 import AppLogo from "../../assets/images/logo.jpg";
 import NavigationItem from "./NavigatinItem/NavigationItem";
 
@@ -15,16 +10,6 @@ class NavigationItems extends Component {
   state = {
     listItems: [
       { id: "0", name: "Home", subLinks: null, mapTo: "/home" },
-      // {
-      //   id: "1",
-      //   name: "Demos",
-      //   subLinks: [
-      //     { id: 0, subLinkName: "Shortcodes" },
-      //     { id: 1, subLinkName: "Typography" },
-      //     { id: 2, subLinkName: "Contact" },
-      //   ],
-      //   mapTo: "/Demos",
-      // },
       {
         id: "1",
         name: "Recipes",
@@ -57,8 +42,6 @@ class NavigationItems extends Component {
         subLinks: null,
         mapTo: "/",
       },
-     
-      
     ],
     hover: [false, false, false],
   };
@@ -72,16 +55,16 @@ class NavigationItems extends Component {
   toggleMouseOut = (id) => {
     this.setState({ hover: [false, false, false] });
   };
-  logOutHandler = () =>{
-    sessionStorage.setItem("authenticated",false);
+  logOutHandler = () => {
+    sessionStorage.setItem("authenticated", false);
     this.props.onLogOut();
-  }
+  };
 
   render() {
     return (
-      <MainWrapper id = "nav">
+      <MainWrapper id="nav">
         <ImgWrapper>
-          <Logo src={AppLogo} />
+          <Logo src={AppLogo} alt="logo" />
         </ImgWrapper>
         <Navigation>
           <NavigationItem
@@ -89,7 +72,7 @@ class NavigationItems extends Component {
             hover={this.state.hover}
             mouseIn={this.toggleMouseIn}
             mouseOut={this.toggleMouseOut}
-            clicked=  {this.logOutHandler}
+            clicked={this.logOutHandler}
           />
         </Navigation>
       </MainWrapper>
@@ -99,6 +82,6 @@ class NavigationItems extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     onLogOut: () => dispatch({ type: "LOGIN" }),
-  }
-}
-export default connect(null,mapDispatchToProps)(NavigationItems);
+  };
+};
+export default connect(null, mapDispatchToProps)(NavigationItems);

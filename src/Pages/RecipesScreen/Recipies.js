@@ -34,8 +34,8 @@ class recipesScreen extends Component {
   getRecipes = () => {
     axios.get("/latest-recipes.json").then((res) => {
       let latestRecipes = [];
-      Object.values(res.data).map((data,index) => {
-        const structure = {
+      latestRecipes = Object.values(res.data).map((data,index) => {
+        return  {
           id: index,
           imgUrl: data.imgUrl,
           bannerImgUrl: data.bannerImgUrl,
@@ -58,7 +58,7 @@ class recipesScreen extends Component {
             return data;
           }),
         };
-        latestRecipes.push(structure);
+        // latestRecipes.push(structure);
       });
       this.setState({loading:false});
       this.setState({latestRecipes:latestRecipes.reverse()})

@@ -56,7 +56,7 @@ const ProductDetail = (props) => {
       </ProdWrapper>
       <ProdWrapper>
         <ProductName>{ProductData.name}</ProductName>
-        <ProductRate>₹ {ProductData.price}.00</ProductRate>
+        <ProductRate>₹ {ProductData.price.toFixed(2)}</ProductRate>
         <ProdDes>{ProductData.description}</ProdDes>
         <ButtonWrapper>
           <ActionButtons

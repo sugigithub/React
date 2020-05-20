@@ -8,16 +8,30 @@ export const AuthorWrapper = styled.div`
   height: fit-content;
 `;
 export const AuthorDetail = styled.p`
-  color: ${(props) => props.color};
-  font-size: ${(props) => props.fontSize};
-  font-weight: ${(props) => props.fontWeight};
-  /* width: 100px; */
+  color: #808080;
+  font-size: 16px;
+  font-weight: 400;
   padding-top: 15px;
   line-height: normal;
+`;
+export const AuthorEmail = styled(AuthorDetail)`
+  color: #808080;
+  font-size: 15px;
+  font-weight: 400;
+`;
+export const AuthorName = styled(AuthorDetail)`
+  color: #606060;
+  font-size: 20px;
+  font-weight: 700;
 `;
 export const AuthorImage = styled.img`
   border-radius: 50%;
   width: 64px;
   height: 64px;
-  float:right;
+  float: right;
+`;
+export const AuthorHeading = styled(AuthorDetail)`
+  color: ${(props) => props.theme.primaryColor};
+  font-size: 17px;
+  font-weight: 500;
 `;

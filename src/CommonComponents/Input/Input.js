@@ -164,11 +164,11 @@ const Inputs = (props) => {
           <ShowHide onClick={props.toogleShow}>
             {props.formConfig.showHide}
           </ShowHide>
-        ) : props.formConfig.arrow == "up" ? (
+        ) : props.formConfig.arrow === "up" ? (
           <IconWrapper key="icon-check">
             <DropArrow className="fas fa-caret-up"></DropArrow>
           </IconWrapper>
-        ) : props.formConfig.arrow == "down" ? (
+        ) : props.formConfig.arrow === "down" ? (
           <IconWrapper key="icon-down">
             <DropArrow className="fas fa-caret-down"></DropArrow>
           </IconWrapper>

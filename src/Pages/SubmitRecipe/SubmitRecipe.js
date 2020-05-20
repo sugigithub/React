@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 
-import withErrorHandler from '../../hoc/withErrorHandler';
+import withErrorHandler from "../../hoc/withErrorHandler";
 import Input from "../../CommonComponents/Input/Input";
 import {
   Wrapper,
@@ -9,6 +9,7 @@ import {
   SubmitRecipeBtn,
   FormWrapper,
   BtnWrapper,
+  ErrorMsg,
 } from "./style";
 import axios from "../../axios/axios";
 import Loader from "../../CommonComponents/Spinner/Spinner";
@@ -22,18 +23,19 @@ class SubmitRecipe extends Component {
         elementConfig: {
           type: "text",
           placeholder: "Enter the title",
+          required: "required",
         },
         value: "",
       },
-      Category: {
-        label: "Choose Category",
-        elementType: "input",
-        elementConfig: {
-          type: "text",
-          placeholder: "Select",
-        },
-        value: "",
-      },
+      // Category: {
+      //   label: "Choose Category",
+      //   elementType: "input",
+      //   elementConfig: {
+      //     type: "text",
+      //     placeholder: "Select",
+      //   },
+      //   value: "",
+      // },
       Summary: {
         label: "Description",
         elementType: "textarea",
@@ -138,21 +140,12 @@ class SubmitRecipe extends Component {
         },
         value: "",
       },
-      upload: {
-        label: "Upload your photos",
-        elementType: "file",
-        elementConfig: {
-          type: "file",
-        },
-        required: true,
-        value: "",
-      },
     },
     isFormFilled: true,
     users: null,
     errorMsg: null,
     loading: null,
-    err:null,
+    err: null,
   };
   componentDidMount() {}
   saveValues = (event, data) => {
@@ -236,66 +229,90 @@ class SubmitRecipe extends Component {
     let oldstate = { ...this.state.formFields };
     let newstate = { ...oldstate[data] };
     let tmp = [...newstate.value];
-    tmp.splice(index, 1);
-    newstate.value = tmp;
-    oldstate[data] = newstate;
-    this.setState({ formFields: oldstate });
+    if (tmp.length > 1) {
+      tmp.splice(index, 1);
+      newstate.value = tmp;
+      oldstate[data] = newstate;
+      this.setState({ formFields: oldstate });
+    }
+  };
+  validateData = () => {
+    let form = Object.keys(this.state.formFields);
+    const data = this.state.formFields;
+    for (let i = 0; i < form.length; i++) {
+      if (data[form[i]].value === "") {
+        this.setState({ errorMsg: true });
+        return false;
+      }
+    }
+    if (
+      data.directions.value[0].value1 == "" ||
+      data.ingredients.value[0].value1 == "" ||
+      data.ingredients.value[0].value2
+    ) {
+      this.setState({ errorMsg: true });
+      return false;
+    }
+    this.setState({ errorMsg: null });
+    return true;
   };
   saveRecipeDetail = (event) => {
     event.preventDefault();
-    const reviews = [2, 3, 4, 5];
-    const bannerImg = ["sliderA_01", "sliderA_02", "sliderA_03", "sliderA_04"];
-    const imgurl = [
-      "recipeThumb-01",
-      "recipeThumb-02",
-      "recipeThumb-03",
-      "recipeThumb-04",
-      "recipeThumb-05",
-      "recipeThumb-06",
-      "recipeThumb-07",
-      "recipeThumb-08",
-      "recipeThumb-09",
-    ];
-    const recipedata = {
-      imgUrl: imgurl[Math.floor(Math.random() * imgurl.length)],
-      bannerImgUrl: bannerImg[Math.floor(Math.random() * bannerImg.length)],
-      name: this.state.formFields.recipeTitle.value,
-      title: this.state.formFields.Category.value,
-      reviews: reviews[Math.floor(Math.random() * reviews.length)],
-      description: this.state.formFields.Summary.value,
-      ratings: reviews[Math.floor(Math.random() * reviews.length)],
-      details: {
-        servings: this.state.formFields.Serves.value,
-        prepTime: this.state.formFields.prepTime.value,
-        Calories: this.state.formFields.yield.value,
-        cooking: this.state.formFields.cookingTime.value,
-        author: "By Santro Fortin",
-      },
-      ingredients: this.state.formFields.ingredients.value.map(
-        (data, index) => {
-          return data.value1 + " " + data.value2;
-        }
-      ),
-      directions: this.state.formFields.directions.value.map((data, index) => {
-        return data.value1;
-      }),
-    };
-    this.setState({ loading: true });
-    const config = {
-      headers: {
-      "Content-Type": "application/json;charset=UTF-8",
-      "Access-Control-Allow-Origin": "*",
-      }
+    if (this.validateData()) {
+      const reviews = [2, 3, 4, 5];
+      const bannerImg = [
+        "sliderA_01",
+        "sliderA_02",
+        "sliderA_03",
+        "sliderA_04",
+      ];
+      const imgurl = [
+        "recipeThumb-01",
+        "recipeThumb-02",
+        "recipeThumb-03",
+        "recipeThumb-04",
+        "recipeThumb-05",
+        "recipeThumb-06",
+        "recipeThumb-07",
+        "recipeThumb-08",
+        "recipeThumb-09",
+      ];
+      const recipedata = {
+        imgUrl: imgurl[Math.floor(Math.random() * imgurl.length)],
+        bannerImgUrl: bannerImg[Math.floor(Math.random() * bannerImg.length)],
+        name: this.state.formFields.recipeTitle.value,
+        title: this.state.formFields.Category.value,
+        reviews: reviews[Math.floor(Math.random() * reviews.length)],
+        description: this.state.formFields.Summary.value,
+        ratings: reviews[Math.floor(Math.random() * reviews.length)],
+        details: {
+          servings: this.state.formFields.Serves.value,
+          prepTime: this.state.formFields.prepTime.value,
+          Calories: this.state.formFields.yield.value,
+          cooking: this.state.formFields.cookingTime.value,
+          author: "By Santro Fortin",
+        },
+        ingredients: this.state.formFields.ingredients.value.map(
+          (data, index) => {
+            return data.value1 + " " + data.value2;
+          }
+        ),
+        directions: this.state.formFields.directions.value.map(
+          (data, index) => {
+            return data.value1;
+          }
+        ),
       };
-    axios.post("/latest-recipes", recipedata,config).
-    then((res) => {
-      console.log(res);
-      this.setState({ loading: false ,err: null});
-    }).
-    catch(err=>{
-      console.log("dfc")
-      this.setState({ err: err });
-    });
+      this.setState({ loading: true });
+      axios
+        .post("/latest-recipes.json", recipedata)
+        .then((res) => {
+          this.setState({ loading: false, err: null });
+        })
+        .catch((err) => {
+          this.setState({ err: err });
+        });
+    }
   };
   render() {
     let form = Object.keys(this.state.formFields);
@@ -331,18 +348,18 @@ class SubmitRecipe extends Component {
     let loadedForm = (
       <FormWrapper autoComplete="off">
         {formElements}
+        <ErrorMsg>
+          {this.state.errorMsg ? "Please fill out all the fields..." : null}
+        </ErrorMsg>
         <SubmitRecipeBtn onClick={(event) => this.saveRecipeDetail(event)}>
           Submit Recipe
         </SubmitRecipeBtn>
       </FormWrapper>
     );
-    if (this.state.loading) {
+    if (this.state.loading && !this.state.err) {
       loadedForm = <Loader />;
     }
-    // if(this.state.err){
-    //   loadedForm = null;
-    // }
-    if ((this.state.loading === false&&!this.state.err)) {
+    if (this.state.loading === false && !this.state.err) {
       loadedForm = (
         <Fragment>
           <Loader spin />
@@ -365,7 +382,6 @@ class SubmitRecipe extends Component {
         </Fragment>
       );
     }
-    console.log(this.state.err)
     return (
       <Wrapper>
         <Header>
@@ -377,4 +393,4 @@ class SubmitRecipe extends Component {
   }
 }
 
-export default withErrorHandler(SubmitRecipe,axios);
+export default withErrorHandler(SubmitRecipe, axios);

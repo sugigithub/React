@@ -1,6 +1,5 @@
 import React from "react";
 
-// import SearchBar from "../../../CommonComponents/SearchRecipe/SearchRecipe";
 import {
   CartWrapper,
   Line,
@@ -20,20 +19,20 @@ const cartItems = (props) => {
   const findSubTotal = () => {
     let total = 0;
     props.cartItems.map((data) => {
-      return total = data.count * data.price + total;
+      return (total = data.count * data.price + total);
     });
     return total;
   };
   return (
     <CartWrapper>
-      {/* <SearchBar /> */}
       <Line cart />
       <Cart>Cart</Cart>
       {props.cartItems.length ? (
         props.cartItems.map((item) => (
           <Details key={item.id}>
             <Image
-              src={require(`\../../../assets/images/${item.imgUrl}.jpg`)} />
+              src={require(`\../../../assets/images/${item.imgUrl}.jpg`)}
+            />
             <DetailWrapper>
               <ProductName color="#606060">{item.name}</ProductName>
               <ProductName color="#909090">

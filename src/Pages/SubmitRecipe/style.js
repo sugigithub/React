@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  /* height: 100%; */
   width: 100%;
 `;
 
@@ -48,4 +47,10 @@ export const FormWrapper = styled.form`
 export const BtnWrapper = styled.div`
   width: fit-content;
   margin: auto;
+`;
+export const ErrorMsg = styled.p`
+  height: 50px;
+  font-size: 20px;
+  color: red;
+  font-weight: 500;
 `;

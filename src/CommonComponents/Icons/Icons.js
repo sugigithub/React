@@ -1,21 +1,20 @@
 import React, { Fragment } from "react";
-import { IconText, Wrapper } from "./style";
+import { IconText, Wrapper, Icons } from "./style";
 
-const icon = (props) => (
-  <Fragment>
-    <Wrapper>
-      <i className="fas fa-utensils" style={{ color: props.color ,fontSize:"12px"}}></i>
-      <IconText color={props.color}>{props.values.servings}</IconText>
-    </Wrapper>
-    <Wrapper>
-      <i className="fas fa-clock" style={{ color: props.color ,fontSize:"12px"}}></i>
-      <IconText color={props.color}>{props.values.prepTime}</IconText>
-    </Wrapper>
-    <Wrapper>
-      <i className="fas fa-user" style={{ color: props.color ,fontSize:"12px"}}></i>
-      <IconText color={props.color}>{props.values.author}</IconText>
-    </Wrapper>
-  </Fragment>
-);
+const iconArray = [
+  { id: "servings", value: "fas fa-utensils" },
+  { id: "prepTime", value: "fas fa-clock" },
+  { id: "author", value: "fas fa-user" },
+];
+
+const icon = (props) =>
+  iconArray.map((name) => {
+    return (
+      <Wrapper key = {name.id}>
+        <Icons className={name.value} color={props.color}></Icons>
+        <IconText color={props.color}>{props.values[name.id]}</IconText>
+      </Wrapper>
+    );
+  });
 
 export default icon;

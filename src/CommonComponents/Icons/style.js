@@ -9,3 +9,7 @@ export const IconText = styled.span`
 export const Wrapper = styled.div`
   float:right;
 `;
+export const Icons = styled.i`
+font-size:12px;
+color: ${props => props.color}
+`;

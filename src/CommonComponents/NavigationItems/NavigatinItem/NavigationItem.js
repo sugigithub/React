@@ -16,7 +16,7 @@ const navigationItem = (props) => {
                 to={item.mapTo}
                 exact
                 activeClassName="curLink"
-                onClick={item.name == "Log Out" ? props.clicked : null}
+                onClick={item.name === "Log Out" ? props.clicked : null}
               >
                 {item.name}
               </StyledLink>
