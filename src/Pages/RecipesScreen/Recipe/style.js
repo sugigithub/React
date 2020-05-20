@@ -16,6 +16,8 @@ export const RecipieName = styled.h2`
   font-size: 19px;
   padding-bottom: 20px;
   border-bottom: ${(props) => (props.listView ? "0" : "2px solid #e5e5e5")};
+  /* height: 70px; */
+  box-sizing: border-box;
 `;
 export const Image = styled.img`
   width: ${(props) => (props.listView ? "250px" : "100%")};
@@ -49,11 +51,12 @@ export const RecipeDescription = styled.p`
   color: #808080;
   border-bottom: 2px solid #e5e5e5;
   padding: 0 0 22px;
+  height: 70px;
 `;
 export const IconsWrapper = styled.div`
   float: right;
   padding-top: 10px;
 `;
 export const ImageWrapper = styled.div`
-position: relative;
+  position: relative;
 `;

@@ -1,9 +1,17 @@
 import React, { Component, Fragment } from "react";
 
-
+import withErrorHandler from '../../hoc/withErrorHandler';
 import Input from "../../CommonComponents/Input/Input";
-import {Wrapper,Header,HeadingText,SubmitRecipeBtn,FormWrapper} from './style';
-import axios from '../../axios/axios';
+import {
+  Wrapper,
+  Header,
+  HeadingText,
+  SubmitRecipeBtn,
+  FormWrapper,
+  BtnWrapper,
+} from "./style";
+import axios from "../../axios/axios";
+import Loader from "../../CommonComponents/Spinner/Spinner";
 
 class SubmitRecipe extends Component {
   state = {
@@ -65,14 +73,6 @@ class SubmitRecipe extends Component {
         value: "",
         arrow: "down",
       },
-      directions: {
-        label: "Directions",
-        elementType: "addMultiple",
-        elementConfig: {
-          placeholder: ["Enter the Steps"],
-        },
-        value: [{ value1: ""}],
-      },
       ingredients: {
         label: "Ingredients",
         elementType: "addMultiple",
@@ -83,6 +83,14 @@ class SubmitRecipe extends Component {
           ],
         },
         value: [{ value1: "", value2: "" }],
+      },
+      directions: {
+        label: "Directions",
+        elementType: "addMultiple",
+        elementConfig: {
+          placeholder: ["Enter the Steps"],
+        },
+        value: [{ value1: "" }],
       },
       yield: {
         label: "yeild",
@@ -108,6 +116,7 @@ class SubmitRecipe extends Component {
         elementConfig: {
           type: "text",
           placeholder: "Select",
+          required: true,
         },
         options: [
           "2 peoples",
@@ -135,12 +144,15 @@ class SubmitRecipe extends Component {
         elementConfig: {
           type: "file",
         },
+        required: true,
         value: "",
       },
     },
     isFormFilled: true,
     users: null,
     errorMsg: null,
+    loading: null,
+    err:null,
   };
   componentDidMount() {}
   saveValues = (event, data) => {
@@ -229,40 +241,65 @@ class SubmitRecipe extends Component {
     oldstate[data] = newstate;
     this.setState({ formFields: oldstate });
   };
-  saveRecipeDetail = (event) =>{
+  saveRecipeDetail = (event) => {
     event.preventDefault();
-
-    let form = Object.keys(this.state.formFields);
-      let reviews = [1,2,3,4,5]
-      const recipedata = {
-        imgUrl: "imgUrl",
-        bannerImgUrl: "bannerImgUrl",
-        name: this.state.formFields.recipeTitle.value,
-        title: this.state.formFields.Category.value,
-        reviews: reviews[Math.floor(Math.random() * reviews.length)],
-        description: this.state.formFields.Summary.value,
-        ratings: reviews[Math.floor(Math.random() * reviews.length)],
-        details: {
-          servings: this.state.formFields.Serves.value,
-          prepTime: this.state.formFields.prepTime.value,
-          Calories: this.state.formFields.yield.value,
-          cooking: this.state.formFields.cookingTime.value,
-          author: "By Santro Fortin",
-        },
-        ingredients: this.state.formFields.ingredients.value.map((data, index) => {
-          return data.value1+" "+data.value2
-        }),
-        directions: this.state.formFields.directions.value.map((data, index) => {
-          return data.value1;
-        }),
+    const reviews = [2, 3, 4, 5];
+    const bannerImg = ["sliderA_01", "sliderA_02", "sliderA_03", "sliderA_04"];
+    const imgurl = [
+      "recipeThumb-01",
+      "recipeThumb-02",
+      "recipeThumb-03",
+      "recipeThumb-04",
+      "recipeThumb-05",
+      "recipeThumb-06",
+      "recipeThumb-07",
+      "recipeThumb-08",
+      "recipeThumb-09",
+    ];
+    const recipedata = {
+      imgUrl: imgurl[Math.floor(Math.random() * imgurl.length)],
+      bannerImgUrl: bannerImg[Math.floor(Math.random() * bannerImg.length)],
+      name: this.state.formFields.recipeTitle.value,
+      title: this.state.formFields.Category.value,
+      reviews: reviews[Math.floor(Math.random() * reviews.length)],
+      description: this.state.formFields.Summary.value,
+      ratings: reviews[Math.floor(Math.random() * reviews.length)],
+      details: {
+        servings: this.state.formFields.Serves.value,
+        prepTime: this.state.formFields.prepTime.value,
+        Calories: this.state.formFields.yield.value,
+        cooking: this.state.formFields.cookingTime.value,
+        author: "By Santro Fortin",
+      },
+      ingredients: this.state.formFields.ingredients.value.map(
+        (data, index) => {
+          return data.value1 + " " + data.value2;
+        }
+      ),
+      directions: this.state.formFields.directions.value.map((data, index) => {
+        return data.value1;
+      }),
+    };
+    this.setState({ loading: true });
+    const config = {
+      headers: {
+      "Content-Type": "application/json;charset=UTF-8",
+      "Access-Control-Allow-Origin": "*",
       }
-      axios.post("/latest-recipes.json",recipedata).then((res) =>{
-        console.log("success");
-      })
-  }
+      };
+    axios.post("/latest-recipes", recipedata,config).
+    then((res) => {
+      console.log(res);
+      this.setState({ loading: false ,err: null});
+    }).
+    catch(err=>{
+      console.log("dfc")
+      this.setState({ err: err });
+    });
+  };
   render() {
     let form = Object.keys(this.state.formFields);
-    const formElements = form.map((data) => (
+    let formElements = form.map((data) => (
       <Input
         onFocus={() => this.dropDownHandler(data, "up")}
         onBlur={() => this.dropDownHandler(data, "down")}
@@ -291,18 +328,53 @@ class SubmitRecipe extends Component {
         submit
       />
     ));
+    let loadedForm = (
+      <FormWrapper autoComplete="off">
+        {formElements}
+        <SubmitRecipeBtn onClick={(event) => this.saveRecipeDetail(event)}>
+          Submit Recipe
+        </SubmitRecipeBtn>
+      </FormWrapper>
+    );
+    if (this.state.loading) {
+      loadedForm = <Loader />;
+    }
+    // if(this.state.err){
+    //   loadedForm = null;
+    // }
+    if ((this.state.loading === false&&!this.state.err)) {
+      loadedForm = (
+        <Fragment>
+          <Loader spin />
+          <BtnWrapper>
+            <SubmitRecipeBtn
+              onClick={() => {
+                this.setState({ loading: null });
+              }}
+            >
+              Submit more recipe
+            </SubmitRecipeBtn>
+            <SubmitRecipeBtn
+              onClick={() => {
+                this.props.history.push("/home");
+              }}
+            >
+              Go to home
+            </SubmitRecipeBtn>
+          </BtnWrapper>
+        </Fragment>
+      );
+    }
+    console.log(this.state.err)
     return (
       <Wrapper>
         <Header>
           <HeadingText>Submit Recipe</HeadingText>
         </Header>
-        <FormWrapper autocomplete="off">
-          {formElements}
-          <SubmitRecipeBtn onClick = {(event) =>this.saveRecipeDetail(event)}>Submit Recipe</SubmitRecipeBtn>
-        </FormWrapper>
+        {loadedForm}
       </Wrapper>
     );
   }
 }
 
-export default SubmitRecipe;
+export default withErrorHandler(SubmitRecipe,axios);

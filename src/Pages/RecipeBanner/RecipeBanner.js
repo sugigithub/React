@@ -19,7 +19,7 @@ class RecipeBanner extends Component {
         detail: this.props.headerData[this.state.selectedHeaderitem],
       },
     });
-    window.scrollTo(0, 0);
+    document.getElementById('wrapper').scrollTop = document.getElementById('nav').offsetTop;
   };
   render() {
     return (

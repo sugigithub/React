@@ -79,7 +79,7 @@ class NavigationItems extends Component {
 
   render() {
     return (
-      <MainWrapper>
+      <MainWrapper id = "nav">
         <ImgWrapper>
           <Logo src={AppLogo} />
         </ImgWrapper>

@@ -19,11 +19,9 @@ export const Loader = styled.div`
     width: 10em;
     height: 10em;
   }
-  margin: 60px auto;
+  margin: 120px auto;
   font-size: 10px;
   position: relative;
-  text-indent: -9999em;
-  /* border: 5px solid rgba(0, 0, 0, 0.2); */
   border:${(props) => props.spin?`5px solid ${props.theme.primaryColor}`:"5px solid rgba(0, 0, 0, 0.2)"};
   border-right: ${(props) => `5px solid ${props.theme.primaryColor}`};
   transform: translateZ(0);

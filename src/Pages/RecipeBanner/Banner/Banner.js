@@ -13,14 +13,13 @@ import {
 
 const banner = (props) => (
   <Fragment>
-    <BannerWrapper url = {props.item.bannerImgUrl}>
+    <BannerWrapper url = {require(`\../../../assets/images/${props.item.bannerImgUrl}.jpg`)}>
       <BannerOverlay />
     <OverlayContet>
       <RecipieBtn>{props.item.title}</RecipieBtn>
       <Text>{props.item.name}</Text>
       <IconsWrapper>
         <Icon values={props.item.details} color="white" />
-        {/* <IconText>{props.item.author}</IconText> */}
       </IconsWrapper>
       <ViewRecipieBtn onClick = {props.viewRecipeHandler}>VIEW RECIPIE</ViewRecipieBtn>
     </OverlayContet>

@@ -24,7 +24,10 @@ const Recipe = (props) => {
         return (
           <RecipieCard key={recipe.id} listView={props.listView}>
             <ImageWrapper>
-              <Image src={recipe.imgUrl} listView={props.listView} />
+              <Image
+                src={require(`\../../../assets/images/${recipe.imgUrl}.jpg`)}
+                listView={props.listView}
+              />
               <CardsOverlay
                 viewDetails={() => props.showDetailHandler(index)}
               />
@@ -39,9 +42,7 @@ const Recipe = (props) => {
                   return (
                     <RatingsIcon
                       key={index}
-                      color={
-                        index < recipe.ratings ? "#F3C63F" : "#E0E0E0"
-                      }
+                      color={index < recipe.ratings ? "#F3C63F" : "#E0E0E0"}
                     />
                   );
                 })}

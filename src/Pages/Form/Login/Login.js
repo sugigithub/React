@@ -138,7 +138,7 @@ class Login extends Component {
     return (
       <Wrapper>
         <Image img={loginBanner} login={true} />
-        <FormElementsWrapper>
+        <FormElementsWrapper autoComplete = "off">
           <SignupText>Login</SignupText>
           {errorMsg}
           {formElements}

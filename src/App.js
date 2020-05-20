@@ -26,7 +26,7 @@ function App() {
   return (
     <Themes>
         <Wrapper>
-          <Wrapper1>
+          <Wrapper1 id = "wrapper">
             <Routes />
           </Wrapper1>
         </Wrapper>

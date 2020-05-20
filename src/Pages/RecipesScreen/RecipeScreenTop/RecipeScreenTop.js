@@ -2,7 +2,6 @@ import React from "react";
 
 import { TopWrapper, Recipe, GridListBtn ,Grid,List} from "./style";
 const RecipeScreenTop = (props) => {
-  console.log(props)
   return (
     <TopWrapper>
       <Recipe>Latest Recipes</Recipe>

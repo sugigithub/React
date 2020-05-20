@@ -18,7 +18,7 @@ export const Dropdown = styled.ul`
   width: 100%;
   background-color: #f6f6f6;
   z-index: 1;
-  display: ${props => props.show? "block":"none"};
+  display: ${(props) => (props.show ? "block" : "none")};
   border: 1px solid #dbdbdb;
   box-sizing: border-box;
   max-height: 180px;
@@ -66,10 +66,6 @@ export const Input = styled.input`
     border-bottom: ${(props) => (props.submit ? "2px solid #dbdbdb" : "none")};
     border-color: ${(props) =>
       props.submit ? props.theme.primaryColor : "none"};
-    /* :focus + ul {
-      display: block;
-      width:100%;
-    } */
   }
 `;
 export const FieldWrapper = styled.div`
@@ -136,7 +132,7 @@ export const ListItem = styled.li`
   padding-left: 5px;
   padding: 7px 0px 0px 5px;
   font-size: 16px;
-  cursor:pointer;
+  cursor: pointer;
   :hover {
     background-color: ${(props) => props.theme.primaryColor};
     color: white;
@@ -211,7 +207,7 @@ export const IngInput = styled.input`
   padding-left: 10px;
   margin: 15px 0px;
   height: 37px;
-  width: ${props => props.inpLen};
+  width: ${(props) => props.inpLen};
   color: ${(props) => props.theme.primaryColor};
   ::placeholder {
     font-size: 16px;

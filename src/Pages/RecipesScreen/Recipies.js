@@ -3,6 +3,7 @@ import React, { Component, Fragment } from "react";
 import { recipesDetail } from "../../Data/Recipe";
 import HomePageRecipe from "./HomePageRecipe/HomePageRecipe";
 import axios from "../../axios/axios";
+import withErrorHandler from '../../hoc/withErrorHandler';
 
 class recipesScreen extends Component {
   componentDidMount() {
@@ -28,10 +29,10 @@ class recipesScreen extends Component {
     listView: false,
     searchRecipe: null,
     searchText: "",
+    loading:true,
   };
   getRecipes = () => {
     axios.get("/latest-recipes.json").then((res) => {
-      console.log(Object.values(res.data));
       let latestRecipes = [];
       Object.values(res.data).map((data,index) => {
         const structure = {
@@ -50,21 +51,25 @@ class recipesScreen extends Component {
             cooking: data.details.cooking,
             author: data.details.author,
           },
-          ingredients: data.ingredients.map((data, index) => {
+          ingredients: data.ingredients.map(data => {
             return data;
           }),
-          directions: data.directions.map((data, index) => {
+          directions: data.directions.map(data => {
             return data;
           }),
         };
         latestRecipes.push(structure);
       });
-      console.log(latestRecipes);
+      this.setState({loading:false});
+      this.setState({latestRecipes:latestRecipes.reverse()})
+    }).catch(err =>{
+      this.setState({loading:false});
     });
   };
   filterRecipe = (text) => {
     let tempRecipeArray = [];
-    recipesDetail.filter((data) => {
+    console.log(this.state.latestRecipes);
+    this.state.latestRecipes.filter((data) => {
       if (data.name.toLowerCase().includes(text)) {
         return tempRecipeArray.push(data);
       }
@@ -81,10 +86,10 @@ class recipesScreen extends Component {
     this.props.history.push({
       pathname: "recipe-detail",
       state: {
-        detail: recipesDetail[id],
+        detail: this.state.latestRecipes[id],
       },
     });
-    window.scrollTo(0, 0);
+    document.getElementById('wrapper').scrollTop = document.getElementById('nav').offsetTop;
   };
 
   searchRecipeHandler = (event) => {
@@ -103,7 +108,7 @@ class recipesScreen extends Component {
         <HomePageRecipe
           recipesDetail={
             this.state.searchRecipe === null
-              ? recipesDetail
+              ? this.state.latestRecipes
               : this.state.searchRecipe
           }
           headerData={recipesDetail.slice(0, 4)}
@@ -113,10 +118,11 @@ class recipesScreen extends Component {
           searchRecipeHandler={this.searchRecipeHandler}
           viewAllRecipe={this.viewAllRecipeHandler}
           searchText={this.state.searchText}
+          loading={this.state.loading}
         />
       </Fragment>
     );
   }
 }
 
-export default recipesScreen;
+export default withErrorHandler(recipesScreen,axios);

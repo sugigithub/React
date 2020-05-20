@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  height: 100%;
+  /* height: 100%; */
   width: 100%;
 `;
 
@@ -28,7 +28,6 @@ export const SubmitRecipeBtn = styled.button`
   font-weight: bold;
   padding: 10px 0;
   height: 40px;
-  margin-bottom: 20px;
   border: none;
   outline: none;
   cursor: pointer;
@@ -37,6 +36,7 @@ export const SubmitRecipeBtn = styled.button`
   }
   width: 150px;
   border-radius: 3px;
+  margin: 0px 20px 20px 0px;
 `;
 export const FormWrapper = styled.form`
   width: 950px;
@@ -44,4 +44,8 @@ export const FormWrapper = styled.form`
   flex-direction: column;
   margin: 0px auto;
   padding: 20px 0px;
+`;
+export const BtnWrapper = styled.div`
+  width: fit-content;
+  margin: auto;
 `;

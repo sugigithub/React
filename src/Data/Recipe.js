@@ -1,8 +1,8 @@
 export const recipesDetail = [
   {
     id: 0,
-    imgUrl: require("../assets/images/recipeThumb-01.jpg"),
-    bannerImgUrl: require("../assets/images/sliderA_01.jpg"),
+    imgUrl: "recipeThumb-01",
+    bannerImgUrl: "sliderA_01",
     name: "Mexican Grilled Corn Recipe",
     title: "BAKING",
     reviews: 4,
@@ -36,8 +36,8 @@ export const recipesDetail = [
   },
   {
     id: 1,
-    imgUrl: require("../assets/images/recipeThumb-02.jpg"),
-    bannerImgUrl: require("../assets/images/sliderA_02.jpg"),
+    imgUrl: "recipeThumb-02",
+    bannerImgUrl: "sliderA_02",
     reviews: 5,
     title: "CURRY",
     name: "Choclate Cake With Green Tea Cream",
@@ -71,8 +71,8 @@ export const recipesDetail = [
   },
   {
     id: 2,
-    imgUrl: require("../assets/images/recipeThumb-03.jpg"),
-    bannerImgUrl: require("../assets/images/sliderA_03.jpg"),
+    imgUrl: "recipeThumb-03",
+    bannerImgUrl: "sliderA_03",
     name: "Thai Yellow Curry Chicken",
     reviews: 6,
     title: "SALADS",
@@ -106,8 +106,8 @@ export const recipesDetail = [
   },
   {
     id: 3,
-    imgUrl: require("../assets/images/recipeThumb-04.jpg"),
-    bannerImgUrl: require("../assets/images/sliderA_04.jpg"),
+    imgUrl: "recipeThumb-04",
+    bannerImgUrl: "sliderA_04",
     name: "Avocado Melon Salad With Lime Vinaigrette",
     reviews: 4,
     title: "BEEF",
@@ -141,8 +141,8 @@ export const recipesDetail = [
   },
   {
     id: 4,
-    imgUrl: require("../assets/images/recipeThumb-05.jpg"),
-    bannerImgUrl: require("../assets/images/sliderA_01.jpg"),
+    imgUrl: "recipeThumb-05",
+    bannerImgUrl: "sliderA_01",
     name: "Sweet Chilli and Lime Chicken Wings",
     reviews: 3,
     title: "Dry",
@@ -176,8 +176,8 @@ export const recipesDetail = [
   },
   {
     id: 5,
-    imgUrl: require("../assets/images/recipeThumb-06.jpg"),
-    bannerImgUrl: require("../assets/images/sliderA_02.jpg"),
+    imgUrl: "recipeThumb-06",
+    bannerImgUrl: "sliderA_02",
     name: "Pollo Borracho With Homemade Tortillas",
     reviews: 8,
     title: "Gravy",
@@ -211,8 +211,8 @@ export const recipesDetail = [
   },
   {
     id: 6,
-    imgUrl: require("../assets/images/recipeThumb-07.jpg"),
-    bannerImgUrl: require("../assets/images/sliderA_03.jpg"),
+    imgUrl: "recipeThumb-07",
+    bannerImgUrl: "sliderA_03",
     name: "Roast Chicken With Lemon Gravy",
     reviews: 4,
     title: "Gravy",
@@ -246,8 +246,8 @@ export const recipesDetail = [
   },
   {
     id: 7,
-    imgUrl: require("../assets/images/recipeThumb-08.jpg"),
-    bannerImgUrl: require("../assets/images/sliderA_04.jpg"),
+    imgUrl: "recipeThumb-08",
+    bannerImgUrl: "sliderA_04",
     name: "Chunky Beef Stew",
     reviews: 5,
     title: "BEEF",
@@ -281,8 +281,8 @@ export const recipesDetail = [
   },
   {
     id: 8,
-    imgUrl: require("../assets/images/recipeThumb-09.jpg"),
-    bannerImgUrl: require("../assets/images/sliderA_01.jpg"),
+    imgUrl: "recipeThumb-09",
+    bannerImgUrl: "sliderA_01",
     name: "Farmhouse Vegetable And Barley Soup",
     reviews: 2,
     title: "Soup",

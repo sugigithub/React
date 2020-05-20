@@ -126,7 +126,7 @@ class ProductsMain extends Component {
       pathname: "products/" + product.name,
       state: { ...product, count },
     });
-    window.scrollTo(0, 0);
+    document.getElementById('wrapper').scrollTop = document.getElementById('nav').offsetTop;
   };
   render() {
     let productCards = <Loader />;
