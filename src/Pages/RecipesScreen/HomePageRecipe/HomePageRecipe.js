@@ -10,9 +10,7 @@ import Loader from '../../../CommonComponents/Spinner/Spinner';
 
 const homePageRecipe = (props) => {
   let cards;
-  console.log(props)
   if(props.loading){
-  console.log(props.recipesDetail)
      cards = <Loader />;
   }
   if (props.recipesDetail) {

@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
+import Spinner from "../../../CommonComponents/Spinner/Spinner";
 import Input from "../../../CommonComponents/Input/Input";
 import loginBanner from "../../../assets/images/receipe.jpeg";
 import {
@@ -73,6 +74,7 @@ class SignUp extends Component {
     isPasswordMatch: true,
     errorMsg: null,
     signedInUsers: null,
+    loading: false,
   };
 
   componentDidMount() {
@@ -143,17 +145,17 @@ class SignUp extends Component {
         password: this.state.formFields.password.value,
         returnSecureToken: true,
       };
-      console.log(signUpdata);
+      this.setState({ loading: true });
       let url =
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAU_m_eq6oQBC5r68X2pcAH6zbl6WjWj8M";
       axios
         .post(url, signUpdata)
         .then((res) => {
-          console.log(res);
+          this.setState({ loading: false });
           this.props.history.push("/");
         })
         .catch((err) => {
-          console.log(err)
+          this.setState({ loading: false });
         });
     }
   };
@@ -204,13 +206,10 @@ class SignUp extends Component {
     } else if (this.state.errorMsg) {
       errorOutput = <ErrorOutput>{this.state.errorMsg}</ErrorOutput>;
     }
-
-    return (
-      <Wrapper>
-        <Image img={loginBanner} login={true} />
-        <FormElementsWrapper autoComplete="off">
-          <SignupText>Sign Up</SignupText>
-          {errorOutput}
+    let formData = <Spinner />;
+    if (!this.state.loading) {
+      formData = (
+        <Fragment>
           {formElements}
           <Button
             onSubmit={(event) => this.onSubmitHandler(event)}
@@ -218,6 +217,16 @@ class SignUp extends Component {
             text1="Sign In"
             redirectTo={(event) => this.signInHandler(event)}
           />
+        </Fragment>
+      );
+    }
+    return (
+      <Wrapper>
+        <Image img={loginBanner} login={true} />
+        <FormElementsWrapper autoComplete="off">
+          <SignupText>Sign Up</SignupText>
+          {errorOutput}
+          {formData}
         </FormElementsWrapper>
       </Wrapper>
     );

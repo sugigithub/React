@@ -62,6 +62,7 @@ class NavigationItems extends Component {
   };
   logOutHandler = () => {
     sessionStorage.setItem("authenticated", false);
+    sessionStorage.setItem("token",null);
     this.props.onLogOut();
   };
 

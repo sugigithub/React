@@ -65,7 +65,7 @@ const RecipeDetailBody = (props) => {
         </Ratings>
         <RecipeImageWrapper>
           <RecipeImage
-            src={require(`\../../../assets/images/${props.data.imgUrl}.jpg`)}
+            src={require(`./${process.env.PUBLIC_URL}/../../../assets/images/${props.data.imgUrl}.jpg`)}
           />
         </RecipeImageWrapper>
         <RecipeDetails>

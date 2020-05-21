@@ -51,7 +51,7 @@ const ProductDetail = (props) => {
     <ProductsWrapper>
       <ProdWrapper>
         <DetailImage
-          src={require(`\../../assets/images/${ProductData.imgUrl}.jpg`)}
+          src={require(`./${process.env.PUBLIC_URL}/../../assets/images/${ProductData.imgUrl}.jpg`)}
         />
       </ProdWrapper>
       <ProdWrapper>

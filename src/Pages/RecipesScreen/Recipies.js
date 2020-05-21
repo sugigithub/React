@@ -5,14 +5,16 @@ import HomePageRecipe from "./HomePageRecipe/HomePageRecipe";
 import axios from "../../axios/axios";
 import withErrorHandler from "../../hoc/withErrorHandler";
 
+import { connect } from "react-redux";
+
 class recipesScreen extends Component {
   componentDidMount() {
     if (this.props.location.state != null) {
       this.setState({ searchText: this.props.location.state.searchText });
     }
     window.location.hash = window.decodeURIComponent(window.location.hash);
-    // scrollToAnchor();
     this.getRecipes();
+    // this.getIdTokenOnExpiry();
   }
   scrollToAnchor = () => {
     const hashParts = window.location.hash.split("#");
@@ -30,9 +32,10 @@ class recipesScreen extends Component {
     searchText: "",
     loading: true,
   };
+
   getRecipes = () => {
     axios
-      .get("/latest-recipes.json")
+      .get("/latest-recipes.json?auth=" + this.props.idToken.idToken)
       .then((res) => {
         let latestRecipes = [];
         latestRecipes = Object.values(res.data).map((data, index) => {
@@ -59,7 +62,6 @@ class recipesScreen extends Component {
               return data;
             }),
           };
-          // latestRecipes.push(structure);
         });
         this.setState({ loading: false });
         this.setState({ latestRecipes: latestRecipes.reverse() });
@@ -75,7 +77,7 @@ class recipesScreen extends Component {
   filterRecipe = (text) => {
     let tempRecipeArray = [];
     this.state.latestRecipes.filter((data) => {
-      if (data.name.toLowerCase().includes(text)) {
+      if (data.name.toLowerCase().includes(text.toLowerCase())) {
         return tempRecipeArray.push(data);
       }
       return "";
@@ -109,7 +111,6 @@ class recipesScreen extends Component {
   viewAllRecipeHandler = () => {
     this.setState({ searchRecipe: null, searchText: "" });
   };
-
   render() {
     return (
       <Fragment>
@@ -132,5 +133,17 @@ class recipesScreen extends Component {
     );
   }
 }
-
-export default withErrorHandler(recipesScreen, axios);
+const mapStateToProps = (state) => {
+  return {
+    idToken: state.idToken,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoggingIn: () => dispatch({ type: "LOGIN" }),
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(recipesScreen, axios));

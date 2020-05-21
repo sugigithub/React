@@ -13,7 +13,7 @@ import {
 
 const banner = (props) => (
   <Fragment>
-    <BannerWrapper url = {require(`\../../../assets/images/${props.item.bannerImgUrl}.jpg`)}>
+    <BannerWrapper url = {require(`./${process.env.PUBLIC_URL}/../../../assets/images/${props.item.bannerImgUrl}.jpg`)}>
       <BannerOverlay />
     <OverlayContet>
       <RecipieBtn>{props.item.title}</RecipieBtn>

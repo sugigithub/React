@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import { withRouter } from "react-router";
+import { connect } from "react-redux";
 
 import CartItem from "../cartItems/CartItems";
 import Loader from "../../../CommonComponents/Spinner/Spinner";
@@ -32,7 +33,7 @@ export class ProductsMain extends Component {
 
   componentDidMount() {
     axios
-      .get("/shop-item.json")
+      .get("/shop-item.json?auth="+this.props.idToken.idToken)
       .then((res) => {
         let cartData = [];
         const data = res.data;
@@ -54,7 +55,6 @@ export class ProductsMain extends Component {
       })
       .catch((err) => {
         this.setState({ error: true });
-        console.log(err);
       });
   }
 
@@ -72,7 +72,6 @@ export class ProductsMain extends Component {
       if (parseInt(cartCount.count) === -1 && index !== undefined) {
         cartData.splice(index, 1);
       } else if (index === undefined && parseInt(cartCount.count) === 0) {
-        console.log("here");
         let cartItem = this.state.shopDetails[parseInt(cartCount.id)];
         let newCart = {
           ...cartItem,
@@ -80,8 +79,6 @@ export class ProductsMain extends Component {
         };
         cartData.push(newCart);
       } else if (parseInt(cartCount.count) > 0) {
-        console.log(cartData[0]);
-        console.log(index);
         cartData[index].count = parseInt(cartCount.count);
       }
     } else {
@@ -120,7 +117,7 @@ export class ProductsMain extends Component {
   checkoutHandler = () => {
     this.setState({ loading: true });
     axios
-      .post("/orders.json", this.state.cartItems)
+      .post("/orders.json?auth="+this.props.idToken.idToken, this.state.cartItems)
       .then((res) => {
         this.setState({ loading: false, cartItems: [], purchaseSuccess: true });
         sessionStorage.removeItem("cartData");
@@ -158,7 +155,7 @@ export class ProductsMain extends Component {
           (productCards = (
             <ProductCard key={product.id}>
               <Image
-                src={require(`\../../../assets/images/${product.imgUrl}.jpg`)}
+                src={require(`./${process.env.PUBLIC_URL}/../../../assets/images/${product.imgUrl}.jpg`)}
                 onClick={() => this.showDetailHandler(product)}
               />
               <AddToCart onClick={() => this.addToCartHandler(product.id)}>
@@ -185,5 +182,9 @@ export class ProductsMain extends Component {
     );
   }
 }
-
-export default withErrorHandler(withRouter(ProductsMain), axios);
+const mapStateToProps = (state) => {
+  return {
+    idToken: state.idToken,
+  };
+};
+export default connect(mapStateToProps)(withErrorHandler(withRouter(ProductsMain), axios));

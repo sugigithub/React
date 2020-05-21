@@ -28,7 +28,6 @@ export const ProductsBtn = styled.button`
   cursor: pointer;
 `;
 const PurchaseSuccess = (props) => {
-  console.log(props);
   return (
     <Wrapper>
       <PurchaseMsg>Your purchase was successful</PurchaseMsg>

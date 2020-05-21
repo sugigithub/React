@@ -31,7 +31,7 @@ const cartItems = (props) => {
         props.cartItems.map((item) => (
           <Details key={item.id}>
             <Image
-              src={require(`\../../../assets/images/${item.imgUrl}.jpg`)}
+              src={require(`./${process.env.PUBLIC_URL}/../../../assets/images/${item.imgUrl}.jpg`)}
             />
             <DetailWrapper>
               <ProductName color="#606060">{item.name}</ProductName>

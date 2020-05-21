@@ -14,17 +14,14 @@ import {
 const AdditionalInfo = (props) => {
   const [color, setColor] = useState([1, 0, 0]);
   useEffect(() =>{
-    console.log("fr")
   })
   const changeState = (id) => {
-    console.log(id);
     let oldState = [...color];
     for (let i = 0; i < oldState.length; i++) {
       if (i === id) oldState[i] = 1;
       else oldState[i] = 0;
     }
     setColor(oldState);
-    console.log([color])
   };
   return (
     <AdditionalInfoWrapper>

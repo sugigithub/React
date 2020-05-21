@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from "react";
 
+import {connect} from 'react-redux';
+
 import withErrorHandler from "../../hoc/withErrorHandler";
 import Input from "../../CommonComponents/Input/Input";
 import {
@@ -172,7 +174,6 @@ export class SubmitRecipe extends Component {
     let searchOptions = [];
     for (let i = 0; i < newstate.options.length; i++) {
       if (newstate.options[i].toLowerCase().includes(inpTxt.toLowerCase())) {
-        console.log(newstate.options[i]);
         searchOptions.push(newstate.options[i]);
       }
     }
@@ -253,14 +254,16 @@ export class SubmitRecipe extends Component {
     for (let i = 0; i < form.length; i++) {
       if (data[form[i]].value === "") {
         this.setState({ errorMsg: true });
+      alert("here1")
         return false;
       }
     }
     if (
       data.directions.value[0].value1 === "" ||
-      data.ingredients.value[0].value1 === "" ||
-      data.ingredients.value[0].value2
+      (data.ingredients.value[0].value1 === "" ||
+      data.ingredients.value[0].value2 === "")
     ) {
+      alert("here")
       this.setState({ errorMsg: true });
       return false;
     }
@@ -316,7 +319,7 @@ export class SubmitRecipe extends Component {
       };
       this.setState({ loading: true });
       axios
-        .post("/latest-recipes.json", recipedata)
+        .post("/latest-recipes.json?auth="+this.props.idToken.idToken, recipedata)
         .then((res) => {
           this.setState({ loading: false, err: null });
         })
@@ -403,5 +406,9 @@ export class SubmitRecipe extends Component {
     );
   }
 }
-
-export default withErrorHandler(SubmitRecipe, axios);
+const mapStateToProps = (state) => {
+  return {
+    idToken: state.idToken,
+  };
+};
+export default connect(mapStateToProps)(withErrorHandler(SubmitRecipe, axios));

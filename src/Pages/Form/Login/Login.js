@@ -1,8 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
 import axios from "axios";
 
+import Spinner from "../../../CommonComponents/Spinner/Spinner";
+import WithErrorHandler from "../../../hoc/withErrorHandler";
 import Input from "../../../CommonComponents/Input/Input";
 import { SignupText, ErrorOutput } from "../Signup/style";
 import { Wrapper, Image, FormElementsWrapper } from "./style";
@@ -36,6 +38,7 @@ class Login extends Component {
     isFormFilled: true,
     users: null,
     errorMsg: null,
+    loading: false,
   };
 
   componentDidMount() {
@@ -57,7 +60,28 @@ class Login extends Component {
     this.setState({ isFormFilled: true });
     return true;
   };
-
+  getIdTokenOnExpiry = (token) => {
+    setTimeout(() => {
+      const dataToPost = {
+        grant_type: "refresh_token",
+        refresh_token: token,
+      };
+      axios
+        .post(
+          "https://securetoken.googleapis.com/v1/token?key=AIzaSyAU_m_eq6oQBC5r68X2pcAH6zbl6WjWj8M",
+          dataToPost
+        )
+        .then((res) => {
+          console.log(res.data);
+          const idToken = {
+            idToken: res.data.id_token,
+            refreshToken: res.data.refresh_token,
+          };
+          sessionStorage.setItem("token", JSON.stringify(idToken));
+          this.props.onLoggingIn();
+        });
+    }, 1000);
+  };
   onSubmitHandler = (event) => {
     event.preventDefault();
     if (this.validateData()) {
@@ -65,30 +89,32 @@ class Login extends Component {
       const password = this.state.formFields.password.value;
       for (let index = 0; index < this.state.users.length; index++) {
         let data = this.state.users;
-        if (
-          data[index].email === email &&
-          data[index].password === password
-        ) {
+        if (data[index].email === email && data[index].password === password) {
           this.setState({ errorMsg: null });
           sessionStorage.setItem("authenticated", true);
-          this.props.onLoggingIn();
           const logIndata = {
             email: this.state.formFields.email.value,
             password: this.state.formFields.password.value,
             returnSecureToken: true,
           };
+          this.setState({ loading: true });
           const url =
             "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAU_m_eq6oQBC5r68X2pcAH6zbl6WjWj8M";
           axios
             .post(url, logIndata)
             .then((res) => {
-              console.log(res);
-              // this.props.history.push("/");
+              this.setState({ loading: false });
+              const token = {
+                idToken: res.data.idToken,
+                refreshToken: res.data.refreshToken,
+              };
+              sessionStorage.setItem("token", JSON.stringify(token));
+              this.getIdTokenOnExpiry(token.refreshToken);
+              this.props.onLoggingIn();
               this.props.history.push("/home");
             })
             .catch((err) => {
-              // console.log(err);
-              this.setState({errorMsg:err.response.data.error.message})
+              this.setState({ loading: false });
             });
           return;
         } else if (
@@ -154,12 +180,10 @@ class Login extends Component {
     } else if (this.state.errorMsg) {
       errorMsg = <ErrorOutput>{this.state.errorMsg}</ErrorOutput>;
     }
-    return (
-      <Wrapper>
-        <Image img={loginBanner} login={true} />
-        <FormElementsWrapper autoComplete="off">
-          <SignupText>Login</SignupText>
-          {errorMsg}
+    let loginForm = <Spinner />;
+    if (!this.state.loading) {
+      loginForm = (
+        <Fragment>
           {formElements}
           <Button
             onSubmit={(event) => this.onSubmitHandler(event)}
@@ -167,6 +191,16 @@ class Login extends Component {
             text1="Sign Up"
             redirectTo={(event) => this.logInHandler(event)}
           />
+        </Fragment>
+      );
+    }
+    return (
+      <Wrapper>
+        <Image img={loginBanner} login={true} />
+        <FormElementsWrapper autoComplete="off">
+          <SignupText>Login</SignupText>
+          {errorMsg}
+          {loginForm}
         </FormElementsWrapper>
       </Wrapper>
     );
@@ -177,4 +211,7 @@ const mapDispatchToProps = (dispatch) => {
     onLoggingIn: () => dispatch({ type: "LOGIN" }),
   };
 };
-export default connect(null, mapDispatchToProps)(Login);
+export default WithErrorHandler(
+  connect(null, mapDispatchToProps)(Login),
+  axios
+);
