@@ -16,7 +16,6 @@ import axios from "axios";
 
 class SignUp extends Component {
   state = {
-    loading: false,
     formFields: {
       name: {
         label: "Full Name",
