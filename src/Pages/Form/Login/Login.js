@@ -1,21 +1,23 @@
 import React, { Component } from "react";
+
 import { connect } from "react-redux";
+import axios from "axios";
 
 import Input from "../../../CommonComponents/Input/Input";
-import {SignupText, ErrorOutput } from "../Signup/style";
-import { Wrapper, Image ,FormElementsWrapper} from "./style";
+import { SignupText, ErrorOutput } from "../Signup/style";
+import { Wrapper, Image, FormElementsWrapper } from "./style";
 import Button from "../button/button";
 import loginBanner from "../../../assets/images/receipe.jpeg";
 
 class Login extends Component {
   state = {
     formFields: {
-      userName: {
-        label: "Username",
+      email: {
+        label: "E-mail",
         elementType: "input",
         elementConfig: {
-          type: "text",
-          placeholder: "UserName..",
+          type: "email",
+          placeholder: "Email..",
         },
         value: "",
         showHide: null,
@@ -59,24 +61,41 @@ class Login extends Component {
   onSubmitHandler = (event) => {
     event.preventDefault();
     if (this.validateData()) {
-      const userName = this.state.formFields.userName.value;
+      const email = this.state.formFields.email.value;
       const password = this.state.formFields.password.value;
       for (let index = 0; index < this.state.users.length; index++) {
         let data = this.state.users;
         if (
-          data[index].userName === userName &&
+          data[index].email === email &&
           data[index].password === password
         ) {
           this.setState({ errorMsg: null });
-          sessionStorage.setItem("authenticated",true);
+          sessionStorage.setItem("authenticated", true);
           this.props.onLoggingIn();
-          this.props.history.push("/home");
+          const logIndata = {
+            email: this.state.formFields.email.value,
+            password: this.state.formFields.password.value,
+            returnSecureToken: true,
+          };
+          const url =
+            "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAU_m_eq6oQBC5r68X2pcAH6zbl6WjWj8M";
+          axios
+            .post(url, logIndata)
+            .then((res) => {
+              console.log(res);
+              // this.props.history.push("/");
+              this.props.history.push("/home");
+            })
+            .catch((err) => {
+              // console.log(err);
+              this.setState({errorMsg:err.response.data.error.message})
+            });
           return;
         } else if (
-          data[index].userName === userName ||
+          data[index].email === email ||
           data[index].password === password
         ) {
-          this.setState({ errorMsg: "Username and Password dosent match" });
+          this.setState({ errorMsg: "Email and Password dosent match" });
           return;
         }
       }
@@ -138,7 +157,7 @@ class Login extends Component {
     return (
       <Wrapper>
         <Image img={loginBanner} login={true} />
-        <FormElementsWrapper autoComplete = "off">
+        <FormElementsWrapper autoComplete="off">
           <SignupText>Login</SignupText>
           {errorMsg}
           {formElements}

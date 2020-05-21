@@ -10,6 +10,11 @@ import {
   AuthorEmail,
   AuthorHeading,
 } from "./style";
+
+/**
+ * Author of the recipe
+ * export and use as <Author />
+ */
 const author = () => {
   return (
     <AuthorWrapper>

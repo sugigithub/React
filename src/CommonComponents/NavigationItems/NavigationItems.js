@@ -6,6 +6,11 @@ import { MainWrapper, ImgWrapper, Logo, Navigation } from "./style";
 import AppLogo from "../../assets/images/logo.jpg";
 import NavigationItem from "./NavigatinItem/NavigationItem";
 
+/**
+ * Navigation bar
+ * import and use as <NavigationItems {...} />
+ */
+
 class NavigationItems extends Component {
   state = {
     listItems: [

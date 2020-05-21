@@ -91,6 +91,11 @@ const colors = [
     dark:"#445778"
   }
 ];
+
+/**
+ * change apps theme
+ * import and use as <ThemeSwitcher {...} />
+ */
 const ThemeSwitcher = (props) => {
   const [toggle, setToggle] = useState("-201px");
   const ToggleColorSwitcher = () => {

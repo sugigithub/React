@@ -5,7 +5,8 @@ import { withRouter } from "react-router";
 import CartItem from "../cartItems/CartItems";
 import Loader from "../../../CommonComponents/Spinner/Spinner";
 import axios from "../../../axios/axios";
-import withErrorHandler from '../../../hoc/withErrorHandler';
+import withErrorHandler from "../../../hoc/withErrorHandler";
+import PurchaseSuccess from "../PurchaseSuccess/PurchaseSuccess";
 import {
   ProductCard,
   Image,
@@ -17,15 +18,16 @@ import {
   CartIcon,
   ProductsWrapper,
   Items,
-  ProductsText
+  ProductsText,
 } from "../style";
 
-class ProductsMain extends Component {
+export class ProductsMain extends Component {
   state = {
     shopDetails: null,
     cartItems: [],
     loading: false,
-    error:false
+    error: false,
+    purchaseSuccess: false,
   };
 
   componentDidMount() {
@@ -48,11 +50,11 @@ class ProductsMain extends Component {
           };
           cartData.push(structure);
         });
-        this.setState({ shopDetails: cartData ,error:false});
+        this.setState({ shopDetails: cartData, error: false });
         this.storeCartItems();
       })
       .catch((err) => {
-        this.setState({error:true})
+        this.setState({ error: true });
         console.log(err);
       });
   }
@@ -71,7 +73,7 @@ class ProductsMain extends Component {
       if (parseInt(cartCount.count) === -1 && index !== undefined) {
         cartData.splice(index, 1);
       } else if (index === undefined && parseInt(cartCount.count) === 0) {
-        console.log("here")
+        console.log("here");
         let cartItem = this.state.shopDetails[parseInt(cartCount.id)];
         let newCart = {
           ...cartItem,
@@ -118,13 +120,15 @@ class ProductsMain extends Component {
   };
   checkoutHandler = () => {
     this.setState({ loading: true });
-    axios.post("/orders.json", this.state.cartItems).then((res) => {
-      this.setState({ loading: false });
-      this.setState({ cartItems: [] });
-      sessionStorage.removeItem("cartData");
-    }).catch(err=>{
-      this.setState({ loading: false });
-    });
+    axios
+      .post("/orders.json", this.state.cartItems)
+      .then((res) => {
+        this.setState({ loading: false, cartItems: [], purchaseSuccess: true });
+        sessionStorage.removeItem("cartData");
+      })
+      .catch((err) => {
+        this.setState({ loading: false, purchaseSuccess: false });
+      });
   };
   showDetailHandler = (product) => {
     const index = this.findId(product.id);
@@ -134,14 +138,22 @@ class ProductsMain extends Component {
       pathname: "products/" + product.name,
       state: { ...product, count },
     });
-    document.getElementById('wrapper').scrollTop = document.getElementById('nav').offsetTop;
+    document.getElementById("wrapper").scrollTop = document.getElementById(
+      "nav"
+    ).offsetTop;
+  };
+  setPurchase = () => {
+    this.setState({ purchaseSuccess: false });
   };
   render() {
     let productCards = <Loader />;
-    if(this.state.error){
+    if (this.state.error) {
       productCards = <ProductsText>Something went wrong</ProductsText>;
     }
-    if (this.state.shopDetails) {
+    if (this.state.purchaseSuccess) {
+      productCards = <PurchaseSuccess click={this.setPurchase} />;
+    }
+    if (this.state.shopDetails && !this.state.purchaseSuccess) {
       productCards = this.state.shopDetails.map(
         (product) =>
           (productCards = (
@@ -175,4 +187,4 @@ class ProductsMain extends Component {
   }
 }
 
-export default withErrorHandler(withRouter(ProductsMain),axios);
+export default withErrorHandler(withRouter(ProductsMain), axios);

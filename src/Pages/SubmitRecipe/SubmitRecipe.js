@@ -14,7 +14,7 @@ import {
 import axios from "../../axios/axios";
 import Loader from "../../CommonComponents/Spinner/Spinner";
 
-class SubmitRecipe extends Component {
+export class SubmitRecipe extends Component {
   state = {
     formFields: {
       recipeTitle: {

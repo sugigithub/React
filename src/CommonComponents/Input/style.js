@@ -39,7 +39,7 @@ export const Input = styled.input`
   width: 100%;
   height: 45px;
   box-sizing: border-box;
-  border: ${(props) => (props.submit ? "2px solid #dbdbdb" : "none")};
+  border: ${(props) => (props.submit ? "2px solid #888888" : "none")};
   outline: none;
   position: relative;
   font-size: 20px;
@@ -63,7 +63,7 @@ export const Input = styled.input`
         width: 100%;
       }
     }
-    border-bottom: ${(props) => (props.submit ? "2px solid #dbdbdb" : "none")};
+    border-bottom: ${(props) => (props.submit ? "2px solid #888888" : "none")};
     border-color: ${(props) =>
       props.submit ? props.theme.primaryColor : "none"};
   }
@@ -92,7 +92,7 @@ export const Datalist = styled.datalist`
 `;
 export const TextArea = styled.textarea`
   height: 125px;
-  border: 2px solid #dbdbdb;
+  border: 2px solid #888888;
   width: 100%;
   outline: none;
   font-size: 20px;
@@ -199,7 +199,7 @@ export const PreviewText = styled.p`
 `;
 
 export const IngInput = styled.input`
-  border: 2px solid #dbdbdb;
+  border: 2px solid #888888;
   outline: none;
   position: relative;
   font-size: 20px;

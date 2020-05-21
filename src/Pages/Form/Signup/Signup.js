@@ -11,6 +11,8 @@ import {
 } from "./style";
 import Button from "../button/button";
 
+import axios from "axios";
+
 class SignUp extends Component {
   state = {
     loading: false,
@@ -69,14 +71,14 @@ class SignUp extends Component {
     },
     isFormFilled: true,
     isPasswordMatch: true,
-    errorMsg:null,
-    signedInUsers:null
+    errorMsg: null,
+    signedInUsers: null,
   };
 
-componentDidMount(){
-  var storeData = JSON.parse(localStorage.getItem("data")) || [];
-  this.setState({signedInUsers:storeData});
-}
+  componentDidMount() {
+    var storeData = JSON.parse(localStorage.getItem("data")) || [];
+    this.setState({ signedInUsers: storeData });
+  }
 
   saveValues = (event, data) => {
     let oldstate = { ...this.state.formFields };
@@ -102,20 +104,22 @@ componentDidMount(){
     if (fields.password.value !== fields.repeatPassword.value) {
       this.setState({ isPasswordMatch: false });
       return false;
-    }
-    else{
-      for(let i =0 ;i<this.state.signedInUsers.length;i++){
-          if(this.state.signedInUsers[i].email === email){
-            this.setState({errorMsg:"account already exists."});
-            return false;
-          }
-          else if(this.state.signedInUsers[i].userName === userName){
-            this.setState({errorMsg:"User name already taken."});
-            return false;
-          }
+    } else {
+      for (let i = 0; i < this.state.signedInUsers.length; i++) {
+        if (this.state.signedInUsers[i].email === email) {
+          this.setState({ errorMsg: "account already exists." });
+          return false;
+        } else if (this.state.signedInUsers[i].userName === userName) {
+          this.setState({ errorMsg: "User name already taken." });
+          return false;
+        }
       }
     }
-    this.setState({errorMsg:null,isPasswordMatch:true,isFormFilled:true})
+    this.setState({
+      errorMsg: null,
+      isPasswordMatch: true,
+      isFormFilled: true,
+    });
     return true;
   };
 
@@ -133,8 +137,24 @@ componentDidMount(){
       storeData.push(logindata);
       localStorage.setItem("data", JSON.stringify(storeData));
       const data = JSON.parse(localStorage.getItem("data"));
-      this.setState({signedInUsers:data})
-      this.props.history.push("/");
+      this.setState({ signedInUsers: data });
+      const signUpdata = {
+        email: this.state.formFields.email.value,
+        password: this.state.formFields.password.value,
+        returnSecureToken: true,
+      };
+      console.log(signUpdata);
+      let url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAU_m_eq6oQBC5r68X2pcAH6zbl6WjWj8M";
+      axios
+        .post(url, signUpdata)
+        .then((res) => {
+          console.log(res);
+          this.props.history.push("/");
+        })
+        .catch((err) => {
+          console.log(err)
+        });
     }
   };
 
@@ -181,15 +201,14 @@ componentDidMount(){
       );
     } else if (!this.state.isPasswordMatch) {
       errorOutput = <ErrorOutput>Passwords dosent match..</ErrorOutput>;
-    }
-    else if(this.state.errorMsg){
+    } else if (this.state.errorMsg) {
       errorOutput = <ErrorOutput>{this.state.errorMsg}</ErrorOutput>;
     }
-    
+
     return (
       <Wrapper>
         <Image img={loginBanner} login={true} />
-        <FormElementsWrapper autoComplete = "off">
+        <FormElementsWrapper autoComplete="off">
           <SignupText>Sign Up</SignupText>
           {errorOutput}
           {formElements}

@@ -1,6 +1,10 @@
 import React, { Fragment } from "react";
+
 import { Login, SignUpBtn, BtnArrow } from "./style";
-const button = (props) => {
+
+import propTypes from 'prop-types';
+
+const Button = (props) => {
   return (
     <Fragment>
       <Login onClick = {props.onSubmit}>{props.text}</Login>
@@ -11,4 +15,10 @@ const button = (props) => {
   );
 };
 
-export default button;
+Button.propTypes = {
+  onSubmit:propTypes.func,
+  redirectTo:propTypes.func,
+  text:propTypes.string,
+  text1:propTypes.string,
+}
+export default Button;

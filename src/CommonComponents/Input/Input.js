@@ -21,6 +21,12 @@ import {
   NewIng,
 } from "./style";
 
+/**
+ * all form fields are present
+ * pass props to choose desired fields
+ * import and use as <Input {...} />
+ */
+
 const Inputs = (props) => {
   const [show, setShow] = useState(false);
   let inputElement = null;

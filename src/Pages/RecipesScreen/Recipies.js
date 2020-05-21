@@ -3,68 +3,74 @@ import React, { Component, Fragment } from "react";
 import { recipesDetail } from "../../Data/Recipe";
 import HomePageRecipe from "./HomePageRecipe/HomePageRecipe";
 import axios from "../../axios/axios";
-import withErrorHandler from '../../hoc/withErrorHandler';
+import withErrorHandler from "../../hoc/withErrorHandler";
 
 class recipesScreen extends Component {
   componentDidMount() {
     if (this.props.location.state != null) {
       this.setState({ searchText: this.props.location.state.searchText });
-      this.filterRecipe(this.props.location.state.searchText);
     }
     window.location.hash = window.decodeURIComponent(window.location.hash);
-    const scrollToAnchor = () => {
-      const hashParts = window.location.hash.split("#");
-      if (hashParts.length === 2) {
-        const hash = hashParts[1];
-        document.getElementById(hash).scrollIntoView();
-        document.getElementById(hash).focus();
-      }
-    };
-    scrollToAnchor();
+    // scrollToAnchor();
     this.getRecipes();
   }
+  scrollToAnchor = () => {
+    const hashParts = window.location.hash.split("#");
+    if (hashParts.length === 2) {
+      const hash = hashParts[1];
+      document.getElementById(hash).scrollIntoView();
+      document.getElementById(hash).focus();
+    }
+  };
 
   state = {
     latestRecipes: null,
     listView: false,
     searchRecipe: null,
     searchText: "",
-    loading:true,
+    loading: true,
   };
   getRecipes = () => {
-    axios.get("/latest-recipes.json").then((res) => {
-      let latestRecipes = [];
-      latestRecipes = Object.values(res.data).map((data,index) => {
-        return  {
-          id: index,
-          imgUrl: data.imgUrl,
-          bannerImgUrl: data.bannerImgUrl,
-          name: data.name,
-          title: data.title,
-          reviews: data.reviews,
-          description: data.description,
-          ratings: data.ratings,
-          details: {
-            servings: data.details.servings,
-            prepTime: data.details.prepTime,
-            Calories: data.details.Calories,
-            cooking: data.details.cooking,
-            author: data.details.author,
-          },
-          ingredients: data.ingredients.map(data => {
-            return data;
-          }),
-          directions: data.directions.map(data => {
-            return data;
-          }),
-        };
-        // latestRecipes.push(structure);
+    axios
+      .get("/latest-recipes.json")
+      .then((res) => {
+        let latestRecipes = [];
+        latestRecipes = Object.values(res.data).map((data, index) => {
+          return {
+            id: index,
+            imgUrl: data.imgUrl,
+            bannerImgUrl: data.bannerImgUrl,
+            name: data.name,
+            title: data.title,
+            reviews: data.reviews,
+            description: data.description,
+            ratings: data.ratings,
+            details: {
+              servings: data.details.servings,
+              prepTime: data.details.prepTime,
+              Calories: data.details.Calories,
+              cooking: data.details.cooking,
+              author: data.details.author,
+            },
+            ingredients: data.ingredients.map((data) => {
+              return data;
+            }),
+            directions: data.directions.map((data) => {
+              return data;
+            }),
+          };
+          // latestRecipes.push(structure);
+        });
+        this.setState({ loading: false });
+        this.setState({ latestRecipes: latestRecipes.reverse() });
+        if (this.state.searchText.length > 0) {
+          this.scrollToAnchor();
+          this.filterRecipe(this.state.searchText);
+        }
+      })
+      .catch((err) => {
+        this.setState({ loading: false });
       });
-      this.setState({loading:false});
-      this.setState({latestRecipes:latestRecipes.reverse()})
-    }).catch(err =>{
-      this.setState({loading:false});
-    });
   };
   filterRecipe = (text) => {
     let tempRecipeArray = [];
@@ -89,7 +95,9 @@ class recipesScreen extends Component {
         detail: this.state.latestRecipes[id],
       },
     });
-    document.getElementById('wrapper').scrollTop = document.getElementById('nav').offsetTop;
+    document.getElementById("wrapper").scrollTop = document.getElementById(
+      "nav"
+    ).offsetTop;
   };
 
   searchRecipeHandler = (event) => {
@@ -125,4 +133,4 @@ class recipesScreen extends Component {
   }
 }
 
-export default withErrorHandler(recipesScreen,axios);
+export default withErrorHandler(recipesScreen, axios);

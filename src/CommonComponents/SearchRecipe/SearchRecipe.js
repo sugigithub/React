@@ -1,9 +1,13 @@
 import React from "react";
 
-import {withTheme} from 'styled-components';
+import { withTheme } from "styled-components";
 
-import { Wrapper, Input, RecipieBtn,SearchIcon } from "./style";
+import { Wrapper, Input, RecipieBtn, SearchIcon } from "./style";
 
+/**
+ * search recipe based on use input
+ * import and use as <SearchRecipe {...} />
+ */
 const searchRecipe = (props) => (
   <Wrapper>
     <Input

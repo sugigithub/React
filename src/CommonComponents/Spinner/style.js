@@ -19,7 +19,7 @@ export const Loader = styled.div`
     width: 10em;
     height: 10em;
   }
-  margin: 120px auto;
+  margin: 100px auto;
   font-size: 10px;
   position: relative;
   border:${(props) => props.spin?`5px solid ${props.theme.primaryColor}`:"5px solid rgba(0, 0, 0, 0.2)"};
