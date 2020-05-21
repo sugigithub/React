@@ -82,6 +82,7 @@ class SignUp extends Component {
   }
 
   saveValues = (event, data) => {
+    this.setState({ errorMsg: null });
     let oldstate = { ...this.state.formFields };
     let newstate = { ...oldstate.data };
     newstate.value = event.target.value;
@@ -127,18 +128,6 @@ class SignUp extends Component {
   onSubmitHandler = (event) => {
     event.preventDefault();
     if (this.validateData()) {
-      var storeData = JSON.parse(localStorage.getItem("data")) || [];
-      let logindata = {};
-      for (const field in this.state.formFields) {
-        logindata = {
-          ...logindata,
-          [field]: this.state.formFields[field].value,
-        };
-      }
-      storeData.push(logindata);
-      localStorage.setItem("data", JSON.stringify(storeData));
-      const data = JSON.parse(localStorage.getItem("data"));
-      this.setState({ signedInUsers: data });
       const signUpdata = {
         email: this.state.formFields.email.value,
         password: this.state.formFields.password.value,
@@ -150,10 +139,23 @@ class SignUp extends Component {
       axios
         .post(url, signUpdata)
         .then((res) => {
+          var storeData = JSON.parse(localStorage.getItem("data")) || [];
+          let logindata = {};
+          for (const field in this.state.formFields) {
+            logindata = {
+              ...logindata,
+              [field]: this.state.formFields[field].value,
+            };
+          }
+          storeData.push(logindata);
+          localStorage.setItem("data", JSON.stringify(storeData));
+          const data = JSON.parse(localStorage.getItem("data"));
+          this.setState({ signedInUsers: data });
           this.setState({ loading: false });
           this.props.history.push("/");
         })
         .catch((err) => {
+          this.setState({ errorMsg: err.response.data.error.message });
           this.setState({ loading: false });
         });
     }

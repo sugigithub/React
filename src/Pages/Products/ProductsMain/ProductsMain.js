@@ -33,7 +33,7 @@ export class ProductsMain extends Component {
 
   componentDidMount() {
     axios
-      .get("/shop-item.json?auth="+this.props.idToken.idToken)
+      .get("/shop-item.json?auth=" + this.props.idToken.idToken)
       .then((res) => {
         let cartData = [];
         const data = res.data;
@@ -117,7 +117,10 @@ export class ProductsMain extends Component {
   checkoutHandler = () => {
     this.setState({ loading: true });
     axios
-      .post("/orders.json?auth="+this.props.idToken.idToken, this.state.cartItems)
+      .post(
+        "/orders.json?auth=" + this.props.idToken.idToken,
+        this.state.cartItems
+      )
       .then((res) => {
         this.setState({ loading: false, cartItems: [], purchaseSuccess: true });
         sessionStorage.removeItem("cartData");
@@ -187,4 +190,6 @@ const mapStateToProps = (state) => {
     idToken: state.idToken,
   };
 };
-export default connect(mapStateToProps)(withErrorHandler(withRouter(ProductsMain), axios));
+export default connect(mapStateToProps)(
+  withErrorHandler(withRouter(ProductsMain), axios)
+);

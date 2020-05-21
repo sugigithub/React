@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import axios from "axios";
 
 import Spinner from "../../../CommonComponents/Spinner/Spinner";
-import WithErrorHandler from "../../../hoc/withErrorHandler";
 import Input from "../../../CommonComponents/Input/Input";
 import { SignupText, ErrorOutput } from "../Signup/style";
 import { Wrapper, Image, FormElementsWrapper } from "./style";
@@ -80,56 +79,42 @@ class Login extends Component {
           sessionStorage.setItem("token", JSON.stringify(idToken));
           this.props.onLoggingIn();
         });
-    }, 1000);
+    }, 360000);
   };
   onSubmitHandler = (event) => {
     event.preventDefault();
     if (this.validateData()) {
-      const email = this.state.formFields.email.value;
-      const password = this.state.formFields.password.value;
-      for (let index = 0; index < this.state.users.length; index++) {
-        let data = this.state.users;
-        if (data[index].email === email && data[index].password === password) {
-          this.setState({ errorMsg: null });
-          sessionStorage.setItem("authenticated", true);
-          const logIndata = {
-            email: this.state.formFields.email.value,
-            password: this.state.formFields.password.value,
-            returnSecureToken: true,
+      const logIndata = {
+        email: this.state.formFields.email.value,
+        password: this.state.formFields.password.value,
+        returnSecureToken: true,
+      };
+      this.setState({ loading: true });
+      const url =
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAU_m_eq6oQBC5r68X2pcAH6zbl6WjWj8M";
+      sessionStorage.setItem("authenticated", true);
+      axios
+        .post(url, logIndata)
+        .then((res) => {
+          this.setState({ loading: false });
+          const token = {
+            idToken: res.data.idToken,
+            refreshToken: res.data.refreshToken,
           };
-          this.setState({ loading: true });
-          const url =
-            "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAU_m_eq6oQBC5r68X2pcAH6zbl6WjWj8M";
-          axios
-            .post(url, logIndata)
-            .then((res) => {
-              this.setState({ loading: false });
-              const token = {
-                idToken: res.data.idToken,
-                refreshToken: res.data.refreshToken,
-              };
-              sessionStorage.setItem("token", JSON.stringify(token));
-              this.getIdTokenOnExpiry(token.refreshToken);
-              this.props.onLoggingIn();
-              this.props.history.push("/home");
-            })
-            .catch((err) => {
-              this.setState({ loading: false });
-            });
-          return;
-        } else if (
-          data[index].email === email ||
-          data[index].password === password
-        ) {
-          this.setState({ errorMsg: "Email and Password dosent match" });
-          return;
-        }
-      }
-      this.setState({ errorMsg: "User does not exist.." });
+          sessionStorage.setItem("token", JSON.stringify(token));
+          this.getIdTokenOnExpiry(token.refreshToken);
+          this.props.onLoggingIn();
+          this.props.history.push("/home");
+        })
+        .catch((err) => {
+          this.setState({ loading: false });
+          this.setState({ errorMsg: err.response.data.error.message });
+        });
     }
   };
 
   saveValues = (event, data) => {
+    this.setState({ errorMsg: null });
     let oldstate = { ...this.state.formFields };
     let newstate = { ...oldstate.data };
     newstate.value = event.target.value;
@@ -211,7 +196,4 @@ const mapDispatchToProps = (dispatch) => {
     onLoggingIn: () => dispatch({ type: "LOGIN" }),
   };
 };
-export default WithErrorHandler(
-  connect(null, mapDispatchToProps)(Login),
-  axios
-);
+export default connect(null, mapDispatchToProps)(Login);
