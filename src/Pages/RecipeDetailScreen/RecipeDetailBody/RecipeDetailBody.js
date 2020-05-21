@@ -25,7 +25,7 @@ import SocialShare from "../SocialShare/SocialShare";
 const RecipeDetailBody = (props) => {
   const detail = Object.keys(props.data.details).map((data, index) => {
     if (data === "author") {
-      return;
+      return "";
     }
     return (
       <Details key={index}>

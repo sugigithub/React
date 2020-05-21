@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { IconText, Wrapper, Icons } from "./style";
 
 const iconArray = [

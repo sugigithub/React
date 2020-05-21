@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Loader from "../../../CommonComponents/Spinner/Spinner";
 import { withTheme } from "styled-components";
 import styled from "styled-components";

@@ -74,11 +74,11 @@ class recipesScreen extends Component {
   };
   filterRecipe = (text) => {
     let tempRecipeArray = [];
-    console.log(this.state.latestRecipes);
     this.state.latestRecipes.filter((data) => {
       if (data.name.toLowerCase().includes(text)) {
         return tempRecipeArray.push(data);
       }
+      return "";
     });
     this.setState({ searchRecipe: tempRecipeArray });
   };

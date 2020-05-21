@@ -26,6 +26,7 @@ export class SubmitRecipe extends Component {
           required: "required",
         },
         value: "",
+        searchOptions: [],
       },
       // Category: {
       //   label: "Choose Category",
@@ -46,6 +47,7 @@ export class SubmitRecipe extends Component {
           cols: "5",
         },
         value: "",
+        searchOptions: [],
       },
       Category: {
         label: "Choose Category",
@@ -85,6 +87,7 @@ export class SubmitRecipe extends Component {
           ],
         },
         value: [{ value1: "", value2: "" }],
+        searchOptions: [],
       },
       directions: {
         label: "Directions",
@@ -93,6 +96,7 @@ export class SubmitRecipe extends Component {
           placeholder: ["Enter the Steps"],
         },
         value: [{ value1: "" }],
+        searchOptions: [],
       },
       yield: {
         label: "yeild",
@@ -102,6 +106,7 @@ export class SubmitRecipe extends Component {
           placeholder: "yeild",
         },
         value: "",
+        searchOptions: [],
       },
       prepTime: {
         label: "Preparation Time",
@@ -111,6 +116,7 @@ export class SubmitRecipe extends Component {
           placeholder: "Preparation time",
         },
         value: "",
+        searchOptions: [],
       },
       Serves: {
         label: "Serves",
@@ -139,6 +145,7 @@ export class SubmitRecipe extends Component {
           placeholder: "Cooking time",
         },
         value: "",
+        searchOptions: [],
       },
     },
     isFormFilled: true,
@@ -149,6 +156,7 @@ export class SubmitRecipe extends Component {
   };
   componentDidMount() {}
   saveValues = (event, data) => {
+    this.setState({ errorMsg: null });
     let oldstate = { ...this.state.formFields };
     let newstate = { ...oldstate.data };
     newstate.value = event.target.value;
@@ -176,6 +184,7 @@ export class SubmitRecipe extends Component {
     this.setState({ formFields: oldstate });
   };
   dropDownHandler = (data, state) => {
+    this.setState({ errorMsg: null });
     let oldstate = { ...this.state.formFields };
     let newstate = { ...oldstate[data] };
     newstate.arrow = state;
@@ -183,6 +192,7 @@ export class SubmitRecipe extends Component {
     this.setState({ formFields: oldstate });
   };
   setDropdownValue = (data, value) => {
+    this.setState({ errorMsg: null });
     let oldstate = { ...this.state.formFields };
     let newstate = { ...oldstate.data };
     newstate.value = value;
@@ -211,6 +221,7 @@ export class SubmitRecipe extends Component {
     this.setState({ formFields: oldstate });
   };
   setIngs = (event, value, index, data) => {
+    this.setState({ errorMsg: null });
     let oldstate = { ...this.state.formFields };
     let newstate = { ...oldstate[data] };
     let tmp = [...newstate.value];
@@ -246,8 +257,8 @@ export class SubmitRecipe extends Component {
       }
     }
     if (
-      data.directions.value[0].value1 == "" ||
-      data.ingredients.value[0].value1 == "" ||
+      data.directions.value[0].value1 === "" ||
+      data.ingredients.value[0].value1 === "" ||
       data.ingredients.value[0].value2
     ) {
       this.setState({ errorMsg: true });
@@ -324,7 +335,7 @@ export class SubmitRecipe extends Component {
         formConfig={this.state.formFields[data]}
         id={data}
         options={
-          this.state.formFields[data].searchOptions == ""
+          this.state.formFields[data].searchOptions.length === 0
             ? this.state.formFields[data].options
             : this.state.formFields[data].searchOptions
         }

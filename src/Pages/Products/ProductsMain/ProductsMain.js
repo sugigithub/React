@@ -36,8 +36,8 @@ export class ProductsMain extends Component {
       .then((res) => {
         let cartData = [];
         const data = res.data;
-        data.map((item, index) => {
-          const structure = {
+        cartData = data.map((item, index) => {
+          return {
             id: index,
             imgUrl: item.imgUrl,
             name: item.name,
@@ -48,7 +48,6 @@ export class ProductsMain extends Component {
               weight: item.additionalInfo.weight,
             },
           };
-          cartData.push(structure);
         });
         this.setState({ shopDetails: cartData, error: false });
         this.storeCartItems();
@@ -65,7 +64,7 @@ export class ProductsMain extends Component {
     if (cartCount !== null && cartData !== []) {
       const index = (() => {
         for (let i = 0; i < cartData.length; i++) {
-          if (parseInt(cartCount.id) == cartData[i].id) {
+          if (parseInt(cartCount.id) === cartData[i].id) {
             return i;
           }
         }
