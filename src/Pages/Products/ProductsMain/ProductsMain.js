@@ -61,7 +61,8 @@ export class ProductsMain extends Component {
   storeCartItems = () => {
     var cartData = JSON.parse(sessionStorage.getItem("cartData")) || [];
     var cartCount = JSON.parse(sessionStorage.getItem("cartCount")) || null;
-    if (cartCount !== null && cartData !== []) {
+    console.log(cartData);
+    if (cartCount) {
       const index = (() => {
         for (let i = 0; i < cartData.length; i++) {
           if (parseInt(cartCount.id) === cartData[i].id) {
@@ -71,17 +72,16 @@ export class ProductsMain extends Component {
       })();
       if (parseInt(cartCount.count) === -1 && index !== undefined) {
         cartData.splice(index, 1);
-      } else if (index === undefined && parseInt(cartCount.count) === 0) {
+      } else if (index === undefined && parseInt(cartCount.count) > 0) {
         let cartItem = this.state.shopDetails[parseInt(cartCount.id)];
         let newCart = {
           ...cartItem,
-          count: 1,
+          count: parseInt(cartCount.count),
         };
         cartData.push(newCart);
       } else if (parseInt(cartCount.count) > 0) {
         cartData[index].count = parseInt(cartCount.count);
       }
-    } else {
     }
     sessionStorage.setItem("cartData", JSON.stringify(cartData));
     this.setState({ cartItems: cartData });
@@ -133,6 +133,7 @@ export class ProductsMain extends Component {
     const index = this.findId(product.id);
     let count = 0;
     if (index !== null) count = this.state.cartItems[index].count;
+    console.log(count);
     this.props.history.push({
       pathname: "products/" + product.name,
       state: { ...product, count },

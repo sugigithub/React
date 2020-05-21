@@ -19,15 +19,17 @@ import {
 const ProductDetail = (props) => {
   let ProductData = props.location.state;
   const [amount, setAmount] = useState(0);
-  
+
   useEffect(() => {
     sessionStorage.setItem("cartCount", ProductData.count);
     setAmount(parseInt(ProductData.count));
+    console.log(ProductData.count);
     return () => {
       const data = {
         id: ProductData.id,
         count: parseInt(sessionStorage.getItem("cartCount")),
       };
+      console.log(data);
       sessionStorage.setItem("cartCount", JSON.stringify(data));
     };
   }, []);
@@ -36,10 +38,14 @@ const ProductDetail = (props) => {
     if (remove === true) {
       sessionStorage.setItem("cartCount", -1);
     }
+    else if (amount === 0) {
+      setAmount(parseInt(amount + 1));
+      sessionStorage.setItem("cartCount", amount + 1);
+    }
     props.history.replace({ path: "/products" });
   };
   const cartItemHandler = (id) => {
-    if (id === "Add" && amount < 9) {
+    if (id === "Add") {
       setAmount(parseInt(amount + 1));
       sessionStorage.setItem("cartCount", amount + 1);
     } else if (id === "Sub" && amount > 1) {
