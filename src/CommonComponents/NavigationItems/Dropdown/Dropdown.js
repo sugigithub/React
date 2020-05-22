@@ -7,7 +7,7 @@ const dropdown = (props) => {
     <ListWrapper show = {props.hover}>
     {props.subLinks.map(link => (
       <List key = {link.id}>
-        <Link href = "/">{link.subLinkName}</Link>
+        <Link to = "/products">{link.subLinkName}</Link>
       </List>
     ))}
     </ListWrapper>

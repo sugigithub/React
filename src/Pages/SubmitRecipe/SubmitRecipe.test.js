@@ -8,7 +8,7 @@ import {SubmitRecipe} from "./SubmitRecipe";
 configure({ adapter: new Adapter() });
 
 describe("<Navigation Items />", () => {
-  it("should render two navigation items if not authenticated", () => {
+  it("should render 9 input items on submit recipe", () => {
       const wrapper = shallow(<SubmitRecipe />);
     expect(wrapper.find(Input)).toHaveLength(9);
   });

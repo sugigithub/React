@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from "react";
 
+import { connect } from "react-redux";
+
 import { recipesDetail } from "../../Data/Recipe";
 import HomePageRecipe from "./HomePageRecipe/HomePageRecipe";
 import axios from "../../axios/axios";
 import withErrorHandler from "../../hoc/withErrorHandler";
 
-import { connect } from "react-redux";
+
 
 class recipesScreen extends Component {
   componentDidMount() {

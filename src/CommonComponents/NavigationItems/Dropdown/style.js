@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 export const ListWrapper = styled.ul`
   background-color: #333;
@@ -16,7 +17,7 @@ export const List = styled.li`
   padding: 10px;
   border-top: 0.1px solid gray;
 `;
-export const Link = styled.a`
+export const Link = styled(NavLink)`
   text-decoration: none;
   color: gray;
 `;

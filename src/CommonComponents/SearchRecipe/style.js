@@ -22,7 +22,7 @@ export const RecipieBtn = styled.button`
   display: inline-block;
   background-color: transparent;
   color: white;
-  font-size: 14px;
+  font-size: 0px;
   padding: 10px 0;
   width: 30%;
   border: none;
@@ -34,4 +34,8 @@ export const RecipieBtn = styled.button`
 `;
 export const SearchIcon = styled.i`
   color: inherit;
+  font-size: 16px;
+`;
+export const SearchLabel = styled.label`
+  width: 0;
 `;

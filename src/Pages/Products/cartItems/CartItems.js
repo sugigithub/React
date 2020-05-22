@@ -32,6 +32,7 @@ const cartItems = (props) => {
           <Details key={item.id}>
             <Image
               src={require(`./${process.env.PUBLIC_URL}/../../../assets/images/${item.imgUrl}.jpg`)}
+              alt = {item.imgUrl}
             />
             <DetailWrapper>
               <ProductName color="#606060">{item.name}</ProductName>

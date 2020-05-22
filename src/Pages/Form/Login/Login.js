@@ -59,27 +59,10 @@ class Login extends Component {
     this.setState({ isFormFilled: true });
     return true;
   };
-  getIdTokenOnExpiry = (token) => {
+  getIdTokenOnExpiry = () => {
     setTimeout(() => {
-      const dataToPost = {
-        grant_type: "refresh_token",
-        refresh_token: token,
-      };
-      axios
-        .post(
-          "https://securetoken.googleapis.com/v1/token?key=AIzaSyAU_m_eq6oQBC5r68X2pcAH6zbl6WjWj8M",
-          dataToPost
-        )
-        .then((res) => {
-          console.log(res.data);
-          const idToken = {
-            idToken: res.data.id_token,
-            refreshToken: res.data.refresh_token,
-          };
-          sessionStorage.setItem("token", JSON.stringify(idToken));
-          this.props.onLoggingIn();
-        });
-    }, 360000);
+      this.props.history.push("/");
+    }, 3600000);
   };
   onSubmitHandler = (event) => {
     event.preventDefault();
@@ -92,7 +75,6 @@ class Login extends Component {
       this.setState({ loading: true });
       const url =
         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAU_m_eq6oQBC5r68X2pcAH6zbl6WjWj8M";
-      sessionStorage.setItem("authenticated", true);
       axios
         .post(url, logIndata)
         .then((res) => {
@@ -102,7 +84,8 @@ class Login extends Component {
             refreshToken: res.data.refreshToken,
           };
           sessionStorage.setItem("token", JSON.stringify(token));
-          this.getIdTokenOnExpiry(token.refreshToken);
+          sessionStorage.setItem("authenticated", true);
+          this.getIdTokenOnExpiry();
           this.props.onLoggingIn();
           this.props.history.push("/home");
         })

@@ -26,6 +26,7 @@ const Recipe = (props) => {
             <ImageWrapper>
               <Image
                 src={require(`./${process.env.PUBLIC_URL}/../../../assets/images/${recipe.imgUrl}.jpg`)}
+                alt = {recipe.imgUrl}
                 listView={props.listView}
               />
               <CardsOverlay

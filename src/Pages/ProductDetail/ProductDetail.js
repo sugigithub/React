@@ -23,13 +23,11 @@ const ProductDetail = (props) => {
   useEffect(() => {
     sessionStorage.setItem("cartCount", ProductData.count);
     setAmount(parseInt(ProductData.count));
-    console.log(ProductData.count);
     return () => {
       const data = {
         id: ProductData.id,
         count: parseInt(sessionStorage.getItem("cartCount")),
       };
-      console.log(data);
       sessionStorage.setItem("cartCount", JSON.stringify(data));
     };
   }, []);
@@ -58,6 +56,7 @@ const ProductDetail = (props) => {
       <ProdWrapper>
         <DetailImage
           src={require(`./${process.env.PUBLIC_URL}/../../assets/images/${ProductData.imgUrl}.jpg`)}
+          alt = {ProductData.imgUrl}
         />
       </ProdWrapper>
       <ProdWrapper>

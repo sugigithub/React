@@ -7,13 +7,13 @@ import RecipeDetailBody from "./RecipeDetailBody/RecipeDetailBody";
 
 const RecipeDetailScreen = (props) => {
   const [searchText, setSearchText] = useState("");
+  const recipeData = props.location.state;
   useEffect(() => {
     if (!recipeData) {
       props.history.push("*");
     }
-  }, []);
+  }, [props.history,recipeData]);
 
-  const recipeData = props.location.state;
   
   const searchRecipeHandler = (event) => {
     setSearchText(event.target.value)    

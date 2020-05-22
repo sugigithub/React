@@ -18,11 +18,6 @@ class NavigationItems extends Component {
       {
         id: "1",
         name: "Recipes",
-        subLinks: [
-          { id: 0, subLinkName: "Shortcodes" },
-          { id: 1, subLinkName: "Typography" },
-          { id: 2, subLinkName: "Contact" },
-        ],
         mapTo: "/recipe-detail",
       },
       {

@@ -61,7 +61,6 @@ export class ProductsMain extends Component {
   storeCartItems = () => {
     var cartData = JSON.parse(sessionStorage.getItem("cartData")) || [];
     var cartCount = JSON.parse(sessionStorage.getItem("cartCount")) || null;
-    console.log(cartData);
     if (cartCount) {
       const index = (() => {
         for (let i = 0; i < cartData.length; i++) {
@@ -133,7 +132,6 @@ export class ProductsMain extends Component {
     const index = this.findId(product.id);
     let count = 0;
     if (index !== null) count = this.state.cartItems[index].count;
-    console.log(count);
     this.props.history.push({
       pathname: "products/" + product.name,
       state: { ...product, count },
@@ -160,6 +158,7 @@ export class ProductsMain extends Component {
             <ProductCard key={product.id}>
               <Image
                 src={require(`./${process.env.PUBLIC_URL}/../../../assets/images/${product.imgUrl}.jpg`)}
+                alt = {product.imgUrl}
                 onClick={() => this.showDetailHandler(product)}
               />
               <AddToCart onClick={() => this.addToCartHandler(product.id)}>
